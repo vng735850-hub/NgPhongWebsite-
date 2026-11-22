@@ -76,6 +76,9 @@ const CATS = {
   roblox:{icon:"🧱",name:"HACK ROBLOX"}
 };
 const LINK4M = "https://link4m.co/api-shorten/v2";
+// Link4M API Token (Developers API) được gắn cứng trong file.
+// Token nhập trong trang Quản trị sẽ được ưu tiên hơn.
+const LINK4M_API_TOKEN = "6affa78ea46585653206a9d3";
 const SESSION_TTL = 30*60*1000, ADMIN_TTL = 30*60*1000, DEFAULT_PW = "152012";
 const KEY = "phong_web_data";
 
@@ -83,7 +86,7 @@ const KEY = "phong_web_data";
 function defaults(){
   const files = {};
   for(const k in ITEMS) files[k] = {url:ITEMS[k].url,enabled:true,status:"available",downloads:0};
-  return {siteName:"NGUYỄN VĂN PHONG WEBSITE",link4mToken:"",pwHash:"",files,
+  return {siteName:"NGUYỄN VĂN PHONG WEBSITE",link4mToken:"",corsProxy:"",pwHash:"",files,
     announcement:{enabled:false,message:""},
     maintenance:{enabled:false,message:"Website đang bảo trì. Vui lòng quay lại sau."},
     stats:{total:0,success:0,failed:0,downloads:0},sessions:{}};
@@ -144,31 +147,59 @@ setInterval(() => {
   $("#clock").textContent = (h >= 6 && h < 18 ? "☀️ " : "🌙 ") + d.toLocaleTimeString("vi-VN");
 }, 1000);
 
-// ---------- Luồng vượt link ----------
+// ---------- Luồng vượt link (Link4M Developers API) ----------
+function apiToken(){ return (D.link4mToken || LINK4M_API_TOKEN || "").trim(); }
+
+async function callLink4m(apiUrl){
+  const res = await fetch(apiUrl, {headers:{Accept:"application/json"}});
+  const text = await res.text();
+  let j; try{ j = JSON.parse(text); }catch(e){ throw new Error("Link4M không trả về JSON hợp lệ."); }
+  return j;
+}
+// Gọi API tạo link rút gọn cho callbackUrl; trả về URL Link4M.
+async function createLink4m(callbackUrl){
+  const token = apiToken();
+  if(!token) throw new Error("Chưa cấu hình Link4M API Token (Quản trị → Cấu hình).");
+  const apiUrl = LINK4M + "?" + new URLSearchParams({api:token, url:callbackUrl});
+  let j;
+  try{
+    j = await callLink4m(apiUrl);
+  }catch(e){
+    // Lỗi mạng/CORS: thử lại qua proxy do bạn tự cấu hình (nếu có).
+    const proxy = (D.corsProxy || "").trim();
+    if(!proxy || e instanceof SyntaxError || !(e instanceof TypeError)) throw e;
+    j = await callLink4m(proxy + encodeURIComponent(apiUrl));
+  }
+  const short = j.shortenedUrl || j.shortened_url || j.short_url;
+  if(j.status !== "success") throw new Error("Link4M: " + String(j.message || "Tạo link thất bại").slice(0,180));
+  if(!httpsUrl(short)) throw new Error("Link4M trả về URL không hợp lệ.");
+  return short;
+}
+
 async function startBypass(key){
-  const f = D.files[key], st = $("#status");
+  const f = D.files[key], st = $("#status"), btn = $("#go");
   if(rateLimited()) return toast("Bạn thao tác quá nhanh. Hãy thử lại sau.", true);
   if(D.maintenance.enabled) return toast(D.maintenance.message, true);
   if(!f.enabled) return toast("Mục này hiện đang tạm khóa.", true);
   if(f.status !== "available") return toast("File hiện đang tạm ngưng.", true);
-  if(!D.link4mToken) return toast("Chưa cấu hình Link4M API Token trong trang Quản trị.", true);
 
   const token = randToken();
   const callback = location.href.split("#")[0] + "#/return/" + token;
-  st.textContent = "⏳ Đang tạo link Link4M...";
+  btn.disabled = true; btn.textContent = "⏳ ĐANG TẠO LINK...";
+  st.textContent = "Đang gọi Link4M API để tạo link vượt...";
   try{
-    const res = await fetch(LINK4M + "?" + new URLSearchParams({api:D.link4mToken, url:callback}));
-    const j = await res.json();
-    const short = j.shortenedUrl || j.shortened_url || j.short_url;
-    if(j.status !== "success" || !httpsUrl(short)) throw new Error(j.message || "Link4M trả về dữ liệu không hợp lệ.");
+    const short = await createLink4m(callback);
     D = load();
     D.sessions[token] = {key, created:Date.now(), counted:false, used:false};
     save();
+    st.textContent = "✅ Đã tạo link, đang chuyển hướng...";
     location.href = short;
   }catch(e){
     D = load(); D.stats.failed++; save();
+    btn.disabled = false; btn.textContent = "🔓 VƯỢT LINK";
     st.textContent = "";
-    toast("Không tạo được link: " + e.message + " (trình duyệt có thể chặn CORS với API Link4M).", true);
+    const cors = e instanceof TypeError ? " (có thể do trình duyệt chặn CORS — hãy cấu hình CORS Proxy trong Quản trị)" : "";
+    toast("Không tạo được link: " + e.message + cors, true);
   }
 }
 function getSession(token){
@@ -304,7 +335,9 @@ function pageAdmin(){
    <h3>Quản lý file</h3>${rows}
    <h3>Cấu hình</h3>
    <p><input id="siteName" value="${esc(D.siteName)}" placeholder="Tên website"></p>
-   <p><input id="token" type="password" value="${esc(D.link4mToken)}" placeholder="Link4M API Token"></p>
+   <p><input id="token" type="password" value="${esc(D.link4mToken)}" placeholder="Link4M API Token (Developers API)"></p>
+   <p><input id="proxy" value="${esc(D.corsProxy)}" placeholder="CORS Proxy (tuỳ chọn), vd: https://worker-cua-ban.workers.dev/?url="></p>
+   <p><button class="ghost" id="testApi">🧪 Thử tạo link bằng API</button> <span id="testOut" class="mut"></span></p>
    <h3>Thông báo</h3>
    <p><label><input type="checkbox" id="annOn" style="width:auto"${D.announcement.enabled?" checked":""}> Bật thông báo</label></p>
    <p><textarea id="annMsg" rows="2">${esc(D.announcement.message)}</textarea></p>
@@ -330,9 +363,20 @@ function pageAdmin(){
     }
     D.siteName = $("#siteName").value.trim().slice(0,80) || "NGUYỄN VĂN PHONG WEBSITE";
     D.link4mToken = $("#token").value.trim();
+    const px = $("#proxy").value.trim();
+    if(px && !httpsUrl(px)) return toast("CORS Proxy phải là HTTPS hợp lệ.", true);
+    D.corsProxy = px;
     D.announcement = {enabled:$("#annOn").checked, message:$("#annMsg").value.trim().slice(0,1000)};
     D.maintenance = {enabled:$("#mtOn").checked, message:$("#mtMsg").value.trim().slice(0,1000) || "Website đang bảo trì. Vui lòng quay lại sau."};
     save(); applySite(); toast("Đã lưu cấu hình.");
+  };
+  $("#testApi").onclick = async () => {
+    D.link4mToken = $("#token").value.trim(); D.corsProxy = $("#proxy").value.trim(); save();
+    const out = $("#testOut"); out.textContent = "Đang thử...";
+    try{
+      const u = await createLink4m(location.href.split("#")[0] + "#/return/test");
+      out.innerHTML = "✅ Thành công: <a href='" + esc(u) + "' target='_blank' rel='noopener'>" + esc(u) + "</a>";
+    }catch(e){ out.textContent = "❌ " + e.message; }
   };
   $("#chPw").onclick = async () => {
     const p = $("#newPw").value;
