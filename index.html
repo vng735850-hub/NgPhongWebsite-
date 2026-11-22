@@ -1,7 +1,3 @@
-PHONG WEB V2.7.3 – INDEX.HTML FIX LINK4M
-
-Hướng dẫn: Sao chép toàn bộ code bên dưới, lưu thành "index.html" rồi thay file HTML cũ trên Render.
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -814,25 +810,3 @@ route();
 </script>
 </body>
 </html>
-
----
-
-CÁCH CÀI ĐẶT
-
-1. Mở file "index.html" cũ.
-2. Xóa code cũ và thay bằng toàn bộ code V2.7.3 ở trên.
-3. Lưu file với tên "index.html".
-4. Upload lên GitHub nếu Render đang kết nối GitHub.
-5. Commit và đợi Render triển khai lại.
-6. Mở website, vào Quản trị và nhập Link4M API Token.
-
-KIỂM TRA LINK4M
-
-Vào Quản trị → THỬ TẠO LINK BẰNG API.
-
-- Nếu thành công: API đã tạo được link rút gọn.
-- Nếu báo lỗi CORS: Link4M chưa cho phép trình duyệt gọi API từ website.
-- Nếu báo HTTP 401/403: kiểm tra quyền hoặc Token.
-- Nếu báo API từ chối: kiểm tra thông báo trả về từ Link4M.
-
-Lưu ý: Bản này không thể bảo đảm sửa được lỗi CORS từ phía Link4M. Ngoài ra, vì Token được nhập và lưu trong trình duyệt nên người dùng có thể xem được Token qua công cụ dành cho nhà phát triển. Không nên dùng Token có quyền nhạy cảm trên website công khai.
