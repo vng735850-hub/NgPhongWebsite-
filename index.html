@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NGUYỄN VĂN PHONG WEBSITE</title>
+<!-- V1.1.2 bản tĩnh cho Render Static Site: index.html + config.json (tuỳ chọn) + ảnh/nhạc -->
 <style>
 :root{--bg:#fff;--fg:#0a0a0a;--card:rgba(255,255,255,.88);--soft:#f3f3f4;--bd:rgba(0,0,0,.16);--ac:#0a0a0a;--mut:#555;--glow:rgba(0,0,0,.1);--btnbg:#0a0a0a;--btnfg:#fff;
  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -106,6 +107,9 @@ const DEF={
 };
 const YOUTUBE="https://youtube.com/@phongngno1.treorank?si=EzywiALRAmFAGT58";
 const TIKTOK="https://vm.tiktok.com/ZS9PAhyxoUMWy-PKpM7/";
+/* ===== LINK4M API (dán token vào đây) — token nằm trong mã trang nên ai xem mã cũng thấy ===== */
+const LINK4M_API_TOKEN="DAN_TOKEN_LINK4M_CUA_BAN_VAO_DAY";
+const LINK4M_ENDPOINT="https://link4m.co/api-shorten/v2";
 
 /* ===== TIỆN ÍCH ===== */
 const $=id=>document.getElementById(id);
@@ -114,7 +118,7 @@ function lk(h,c,x){return el("a",c,x,{href:h})}
 function card(h,i,sub){const a=lk(h,"card");a.append(el("span","",i.icon),el("b","",i.name),el("small","",sub));return a}
 function bk(h,t){return lk(h,"btn back",t||"← QUAY LẠI")}
 function okUrl(u){return typeof u==="string"&&/^https:\/\/[^\s]+$/i.test(u)}
-function okSrc(u){return okUrl(u)||/^\/_blob\/[0-9a-f]{32}$/.test(u)}
+function okSrc(u){return okUrl(u)||/^[\w\-./]+\.(mp3|ogg|m4a|wav)$/i.test(u)}
 function slug(s){return String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")}
 const fmt=n=>Number(n||0).toLocaleString("vi-VN");
 
@@ -130,6 +134,7 @@ function norm(d){
  const o=JSON.parse(JSON.stringify(DEF));
  if(d&&Array.isArray(d.tags))o.tags=d.tags;
  if(d&&Array.isArray(d.items))o.items=d.items;
+ o.items.forEach(x=>{if(x&&x.key==="nvpkey"&&!x.gateUrl)x.gateUrl="https://link4m.net/OQxphm"});
  if(d&&Array.isArray(d.notices))o.notices=d.notices;
  if(d&&Array.isArray(d.music))o.music=d.music;
  if(d&&d.site&&typeof d.site==="object")o.site=Object.assign(o.site,d.site);
@@ -239,7 +244,21 @@ function itemPage(app,key,step){
   b.append(el("div","","✅",{style:"font-size:48px"}),el("h2","","VƯỢT LINK THÀNH CÔNG"),a,el("br"),bk(back));
  }else{
   const g=lk("#thanks-"+key,"btn","🔓 VƯỢT LINK");
-  if(okUrl(it.gateUrl))g.onclick=()=>{window.open(it.gateUrl,"_blank","noopener")};
+  g.onclick=async e=>{
+   if(LINK4M_API_TOKEN.startsWith("DAN_TOKEN")){if(okUrl(it.gateUrl))window.open(it.gateUrl,"_blank","noopener");return}
+   e.preventDefault();g.textContent="ĐANG TẠO LINK...";
+   const back=location.origin+location.pathname+"#thanks-"+key;
+   try{
+    const r=await fetch(LINK4M_ENDPOINT+"?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(back)),d=await r.json();
+    const u=d.shortenedUrl||d.shortened_url||d.short_url;
+    if(d.status!=="success"||!okUrl(u))throw new Error(d.message||"Link4M từ chối");
+    location.href=u;
+   }catch(err){
+    g.textContent="🔓 VƯỢT LINK";
+    if(okUrl(it.gateUrl)){location.href=it.gateUrl;return}
+    toastMsg("Không tạo được link Link4M: "+(err.message||"trình duyệt chặn yêu cầu"));
+   }
+  };
   b.append(el("div","",it.icon,{style:"font-size:48px"}),el("h2","","BẠN CẦN VƯỢT LINK ĐỂ LẤY "+it.name),el("p","msg","Tên file: "+it.file+" | Trạng thái: Sẵn sàng"),g,el("br"),bk(back));
  }
  app.append(b);
@@ -267,7 +286,7 @@ function adminPage(app){
  }
  draft=JSON.parse(JSON.stringify(cfg));
  const top=el("div","box");top.style.maxWidth="none";
- top.append(el("h2","","⚙️ QUẢN TRỊ"),el("p","mut","Mọi thay đổi sau khi bấm LƯU sẽ áp dụng cho tất cả người dùng (tự cập nhật ngay)."),
+ top.append(el("h2","","⚙️ QUẢN TRỊ"),el("p","mut","Bấm LƯU để lưu trên trình duyệt này, rồi bấm TẢI config.json và đặt file cạnh trang HTML trên Render để áp dụng cho mọi người dùng. Thống kê và nhật ký trong bản này chỉ tính trên trình duyệt này."),
   statBox([["users","👁 Người dùng"],["online","🟢 Online"],["android","🤖 Android"],["iphone","🍎 iPhone"],["gates","✅ Vượt link"],["files","📥 Lấy file"]]));
  const mk=(title,hint)=>{const s=el("section","box");s.style.maxWidth="none";s.append(el("h3","",title));if(hint)s.append(el("p","mut",hint));return s};
  const sT=mk("🏷️ Tag"),bT=el("div"),sI=mk("🧩 Mục","Link VƯỢT LINK mở khi bấm nút vượt link (để trống nếu không dùng). Link LẤY FILE mở ở bước cuối."),bI=el("div"),sN=mk("📢 Thông báo"),bN=el("div"),sM=mk("🎵 Nhạc","Dán link MP3 HTTPS hoặc tải file lên."),bM=el("div");
@@ -316,7 +335,7 @@ function adminPage(app){
   const t=nt2.value.trim();if(!t){amsg("Hãy nhập nội dung.",true);return}
   draft.notices.unshift({text:t,enabled:true,time:new Date().toLocaleString("vi-VN")});nt2.value="";dN()}}));
  sM.append(bM,mr);
- claude.use("assets").then(as=>{if(!as)return;
+ Promise.resolve(null).then(as=>{if(!as)return;
   const f=el("input","","",{type:"file",accept:"audio/*"});
   sM.append(f,el("button","btn","⬆ TẢI MP3 LÊN",{onclick:async()=>{
    if(!f.files[0]){amsg("Hãy chọn file nhạc.",true);return}
@@ -330,7 +349,7 @@ function adminPage(app){
   for(const m of draft.music)if(!okSrc(m.src)){amsg("Link nhạc không hợp lệ: "+m.name,true);return}
   try{
    await dbh.doc("config/main").set({tags:draft.tags,items:draft.items,notices:draft.notices.filter(n=>n.text&&n.text.trim()),music:draft.music,site:draft.site,maint:draft.maint});
-   logAct("Admin","Lưu cấu hình");amsg("Đã lưu. Tất cả người dùng sẽ thấy thay đổi ngay.");
+   logAct("Admin","Lưu cấu hình");amsg("Đã lưu trên trình duyệt này. Bấm TẢI config.json và đưa lên Render để áp dụng cho mọi người.");
   }catch(e){amsg("Lưu thất bại: "+(e.message||e.code||"lỗi"),true)}}});
  const sX=mk("🛠️ Bảo trì web","Khi bật, người dùng không mở được các mục: bấm vào sẽ hiện thông báo bảo trì. Bạn vẫn dùng Quản Trị bình thường.");
  const mc=el("input","","",{type:"checkbox",checked:!!draft.maint.on,style:"width:auto",onchange(){draft.maint.on=this.checked}}),ml=el("label");
@@ -348,9 +367,12 @@ function adminPage(app){
  s3.append(sc,el("label","","Độ nghiêng 3D"),rg);
  const sL=mk("🧾 Nhật ký hoạt động","Trang web công khai không có cách nào lấy địa chỉ IP của người dùng. Mỗi hoạt động được lưu kèm giờ, mã người dùng (ẩn danh) và thiết bị."),bL=el("div");
  sL.append(bL);if(unL){unL();unL=null}
- if(dbh)unL=dbh.collection("logs").onSnapshot(s=>{bL.replaceChildren();const all=[];s.docs.forEach(d=>{const x=d.data()||{};(Array.isArray(x.entries)?x.entries:[]).forEach(e=>all.push({t:e.t,action:e.a,detail:e.d,uid:x.uid,device:x.device}))});all.sort((a,b)=>b.t-a.t);if(!all.length)bL.append(el("p","mut","Chưa có hoạt động."));all.slice(0,100).forEach(x=>{bL.append(el("div","it",new Date(x.t).toLocaleString("vi-VN")+" · "+x.action+(x.detail?" · "+x.detail:"")+" · "+String(x.uid||"").slice(0,8)+" · "+(x.device||"?")+" · IP: không lấy được"))})},()=>{bL.replaceChildren(el("p","mut","Không đọc được nhật ký (cần quyền chỉnh sửa trang)."))});
+ if(dbh)unL=dbh.collection("logs").onSnapshot(s=>{bL.replaceChildren();const all=[];s.docs.forEach(d=>{const x=d.data()||{};(Array.isArray(x.entries)?x.entries:[]).forEach(e=>all.push({t:e.t,action:e.a,detail:e.d,uid:x.uid,device:x.device}))});all.sort((a,b)=>b.t-a.t);if(!all.length)bL.append(el("p","mut","Chưa có hoạt động."));all.slice(0,100).forEach(x=>{bL.append(el("div","it",new Date(x.t).toLocaleString("vi-VN")+" · "+x.action+(x.detail?" · "+x.detail:"")+" · "+String(x.uid||"").slice(0,8)+" · "+(x.device||"?")+" · IP: không lấy được"))})},()=>{bL.replaceChildren(el("p","mut","Không đọc được nhật ký (cần được cấp quyền cộng tác trang)."))});
  dT();dI();dN();dM();
- app.append(top,sX,s3,sT,sI,sN,sM,sL,save,el("div","","",{id:"amsg"}),bk("#home","← TRANG CHỦ"));
+ const ex=el("button","btn","⬇ TẢI config.json",{onclick(){
+  const bl=new Blob([JSON.stringify({tags:draft.tags,items:draft.items,notices:draft.notices,music:draft.music,site:draft.site,maint:draft.maint},null,2)],{type:"application/json"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(bl);a.download="config.json";a.click()}});
+ app.append(top,sX,s3,sT,sI,sN,sM,sL,save,ex,el("div","","",{id:"amsg"}),bk("#home","← TRANG CHỦ"));
 }
 
 /* ===== ĐIỀU HƯỚNG ===== */
@@ -387,10 +409,30 @@ aud.addEventListener("error",()=>{pp.textContent="▶"});
 $("mn").onclick=()=>{const p=$("player");p.classList.toggle("min");$("mn").textContent=p.classList.contains("min")?"♫":"−"};
 
 /* ===== KẾT NỐI DỮ LIỆU CHUNG ===== */
+let fileCfg=null;
+function makeDb(){
+ const subs=[];
+ const ld=k=>{try{return JSON.parse(localStorage.getItem("phong_"+k)||"null")}catch(e){return null}};
+ const sv=(k,v)=>{try{localStorage.setItem("phong_"+k,JSON.stringify(v))}catch(e){}};
+ const fire=t=>subs.forEach(s=>{if(s[0]===t)s[1]()});
+ fetch("config.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{fileCfg=d;fire("config")}).catch(()=>{});
+ return{
+  doc:()=>({
+   set:async v=>{sv("config",v);fire("config")},
+   onSnapshot:fn=>{const f=()=>{const v=ld("config")||fileCfg;fn({exists:!!v,data:()=>v})};subs.push(["config",f]);f();return()=>{}}
+  }),
+  collection:name=>({
+   doc:id=>({
+    get:async()=>{const v=ld(name+"_"+id);return{exists:!!v,data:()=>v}},
+    set:async v=>{sv(name+"_"+id,v);const ids=ld(name+"_ids")||[];if(!ids.includes(id)){ids.push(id);sv(name+"_ids",ids)}fire(name)}}),
+   onSnapshot:fn=>{const f=()=>{const docs=(ld(name+"_ids")||[]).map(id=>({data:()=>ld(name+"_"+id)}));fn({docs,empty:!docs.length})};subs.push([name,f]);f();return()=>{}}
+  })
+ };
+}
 async function init(){
  drawNav();route();trkName();
  try{
-  const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+  const db=makeDb(),user={canEdit:async()=>true,id:async()=>{let i="";try{i=localStorage.getItem("phong_uid")||"";if(!i){i=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem("phong_uid",i)}}catch(e){i="local"}return i}};
   if(user){try{isAdmin=!!(await user.canEdit())}catch(e){}}
   if(!db){canWrite=false;return}
   dbh=db;
