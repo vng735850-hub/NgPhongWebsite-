@@ -108,7 +108,7 @@ const DEF={
 const YOUTUBE="https://youtube.com/@phongngno1.treorank?si=EzywiALRAmFAGT58";
 const TIKTOK="https://vm.tiktok.com/ZS9PAhyxoUMWy-PKpM7/";
 /* ===== LINK4M API (dán token vào đây) — token nằm trong mã trang nên ai xem mã cũng thấy ===== */
-const LINK4M_API_TOKEN="DAN_TOKEN_LINK4M_CUA_BAN_VAO_DAY";
+const LINK4M_API_TOKEN="6affa78ea46585653206a9d3";
 const LINK4M_ENDPOINT="https://link4m.co/api-shorten/v2";
 
 /* ===== TIỆN ÍCH ===== */
@@ -251,12 +251,12 @@ function itemPage(app,key,step){
    try{
     const r=await fetch(LINK4M_ENDPOINT+"?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(back)),d=await r.json();
     const u=d.shortenedUrl||d.shortened_url||d.short_url;
-    if(d.status!=="success"||!okUrl(u))throw new Error(d.message||"Link4M từ chối");
+    if(d.status!=="success"||!okUrl(u)){const x=new Error(d.message||"Link4M từ chối");x.api=1;throw x}
     location.href=u;
    }catch(err){
     g.textContent="🔓 VƯỢT LINK";
-    if(okUrl(it.gateUrl)){location.href=it.gateUrl;return}
-    toastMsg("Không tạo được link Link4M: "+(err.message||"trình duyệt chặn yêu cầu"));
+    if(err.api){toastMsg("Link4M báo lỗi: "+err.message);return}
+    location.href="https://link4m.co/st?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(back);
    }
   };
   b.append(el("div","",it.icon,{style:"font-size:48px"}),el("h2","","BẠN CẦN VƯỢT LINK ĐỂ LẤY "+it.name),el("p","msg","Tên file: "+it.file+" | Trạng thái: Sẵn sàng"),g,el("br"),bk(back));
