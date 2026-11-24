@@ -42,10 +42,63 @@ header button,.clock{height:43px;border:1px solid var(--bd);border-radius:10px;b
 .u040-hl::before{content:"";position:absolute;left:-10px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:var(--u-grad)}
 .u040-it{position:relative;display:flex;align-items:center;gap:14px;width:100%;height:48px;padding:0 10px 0 16px;border-radius:15px;color:inherit;text-decoration:none;opacity:.62;transition:opacity .25s;overflow:hidden}
 .u040-it:hover,.u040-it[aria-current="page"]{opacity:1}
+.u040-row{position:relative;display:flex;align-items:center}
+.u040-row .u040-it{flex:1;min-width:0;width:auto}
+.u040-ex{position:relative;flex:none;width:34px;height:48px;margin-left:2px;padding:0;border:0;border-radius:12px;background:none;color:inherit;display:grid;place-items:center;opacity:.62;cursor:pointer;transition:opacity .25s,background .2s}
+.u040-ex:hover{opacity:1;background:color-mix(in srgb,currentColor 12%,transparent)}
+.u040-ex svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--u-spring)}
+.u040-ex[aria-expanded="true"] svg{transform:rotate(180deg)}
+.u040-ex:focus-visible,.u040-sit:focus-visible{outline:2px solid var(--rfg);outline-offset:-2px}
+.u040-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--u-ease)}
+.u040-sub.is-open{grid-template-rows:1fr}
+.u040-subl{min-height:0;overflow:hidden;margin:0 0 0 24px;padding:0 0 0 8px;list-style:none;border-left:1px solid color-mix(in srgb,currentColor 22%,transparent);visibility:hidden;transition:visibility 0s .4s}
+.u040-sub.is-open .u040-subl{visibility:visible;transition:visibility 0s}
+.u040-sit{position:relative;display:flex;align-items:center;gap:10px;min-height:38px;padding:6px 10px;border-radius:12px;color:inherit;text-decoration:none;font-size:12.5px;font-weight:650;opacity:.62;transition:opacity .25s,background .2s}
+.u040-sit:hover,.u040-sit[aria-current="page"]{opacity:1}
+.u040-sit[aria-current="page"]{background:color-mix(in srgb,currentColor 15%,transparent)}
+.u040-sic{width:20px;flex:none;text-align:center;font-size:16px}
+.u040-sit span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u040-se{padding:8px 10px;font-size:12px;opacity:.55}
+.u040:not(.is-wide) .u040-ex,.u040:not(.is-wide) .u040-sub{display:none}
 .u040-ic{width:22px;flex:none;font-size:20px;line-height:22px;text-align:center}
 .u040-lb{min-width:0;font-size:13.5px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateX(-8px);transition:opacity .2s,transform .35s var(--u-ease)}
 .u040.is-wide .u040-lb{opacity:1;transform:none;transition:opacity .3s var(--u-ease),transform .5s var(--u-spring);transition-delay:calc(.12s + var(--i) * 35ms)}
 @media (prefers-reduced-motion:reduce){.u040,.u040 *,.u040 *::before{transition-duration:.001ms!important;transition-delay:0s!important;animation-duration:.001ms!important}}
+/* Lucian UX/UI Prompt #448 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#448 */
+.u448{--l-btn:color-mix(in srgb,var(--rfg) 13%,var(--rbg));--l-pan:color-mix(in srgb,var(--rfg) 20%,var(--rbg));--l-hov:color-mix(in srgb,var(--rfg) 14%,transparent);--l-ink:var(--rfg);--l-ink3:color-mix(in srgb,var(--rfg) 58%,transparent);--l-line:color-mix(in srgb,var(--rfg) 24%,transparent);--l-acc:var(--rfg);--u-ease:cubic-bezier(.2,.8,.2,1);--u-spring:cubic-bezier(.34,1.45,.64,1);
+ position:relative;z-index:4;flex:none;margin:0 0 12px;color:var(--l-ink)}
+.u448-w{position:relative;width:100%;height:44px}
+.u448-b{position:absolute;left:50%;top:0;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px 0 10px;border:0;border-radius:22px;background:var(--l-btn);color:var(--l-ink);font:inherit;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:inset 0 0 0 1px var(--l-line);transform:translateX(-50%);transition:box-shadow .2s,transform .4s var(--u-spring)}
+.u448-b:hover{box-shadow:inset 0 0 0 1px var(--l-ink3)}
+.u448-b:active{transform:translateX(-50%) scale(.96)}
+.u448 .u448-b:focus-visible{outline:2px solid var(--l-ink);outline-offset:3px}
+.u448-g{width:22px;height:22px;flex:none;color:var(--l-acc)}
+.u448-g svg{width:22px;height:22px;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.u448-g .mer{transform:translateX(0)}
+.u448-g.is-spin .mer{animation:u448-roll .9s cubic-bezier(.3,.7,.2,1)}
+.u448-g.is-spin svg{animation:u448-tilt .9s var(--u-spring)}
+@keyframes u448-roll{from{transform:translateX(-16px)}}
+@keyframes u448-tilt{30%{transform:rotate(-24deg) scale(1.12)}}
+.u448-lb{display:grid;grid-template-columns:minmax(0,1fr);overflow-x:clip;transition:width .45s var(--u-spring)}
+.u448-lb span{grid-area:1/1;justify-self:start;width:max-content;white-space:nowrap;transition:opacity .2s,transform .4s var(--u-spring),filter .2s}
+.u448-lb span.is-out{opacity:0;transform:translateY(-10px);filter:blur(2px)}
+.u448-lb span.is-in{animation:u448-in .45s var(--u-spring)}
+@keyframes u448-in{from{opacity:0;transform:translateY(10px);filter:blur(2px)}}
+.u448-cv{width:12px;height:12px;flex:none;fill:none;stroke:var(--l-ink3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s var(--u-spring)}
+.u448-b[aria-expanded="true"] .u448-cv{transform:rotate(180deg)}
+.u040:not(.is-wide) .u448-lb,.u040:not(.is-wide) .u448-cv{display:none}
+.u040:not(.is-wide) .u448-b{gap:0;padding:0 11px}
+.u448-p{position:absolute;left:0;right:0;top:54px;margin:0;padding:6px;list-style:none;border-radius:16px;background:var(--l-pan);box-shadow:inset 0 0 0 1px var(--l-line),0 22px 44px -18px rgba(0,0,0,.5),0 4px 12px -6px rgba(0,0,0,.3);transform-origin:50% -32px;transform:scale(.3) translateY(-8px);opacity:0;visibility:hidden;outline:none;transition:transform .25s var(--u-ease),opacity .18s,visibility 0s .25s}
+.u448.is-open .u448-p{transform:none;opacity:1;visibility:visible;transition:transform .55s var(--u-spring),opacity .15s,visibility 0s}
+.u448-o{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:10px;font-size:14px;color:var(--l-ink);cursor:pointer;opacity:0;transform:translateY(-6px);transition:background .15s,opacity .15s,transform .35s var(--u-spring)}
+.u448.is-open .u448-o{opacity:1;transform:none;transition-delay:0s,calc(60ms + var(--i) * 30ms),calc(60ms + var(--i) * 30ms)}
+.u448-o:hover,.u448-o.is-act{background:var(--l-hov)}
+.u448-o span{flex:1}
+.u448-o em{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--l-ink3)}
+.u448-o svg{width:16px;height:16px;fill:none;stroke:var(--l-acc);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.4);transition:opacity .2s,transform .35s var(--u-spring)}
+.u448-o[aria-selected="true"]{font-weight:600}
+.u448-o[aria-selected="true"] svg{opacity:1;transform:none}
+.u448-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0}
 #bd{position:fixed;inset:0;background:rgba(0,10,30,.5);opacity:0;pointer-events:none;transition:.3s;z-index:25}
 #bd.show{opacity:1;pointer-events:auto}
 main{width:min(900px,92%);margin:25px auto 90px;text-align:center}
@@ -264,49 +317,41 @@ html.u289-ln #app a,html.u289-ln #nav a{text-decoration:underline;text-decoratio
 .u444-s .u444-sr,.u444-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0}
 .u444-nt,.u444-nt *,.u444-nt *::after{transition:none!important}
 @media (prefers-reduced-motion:reduce){.u444,.u444 *,.u444 *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
-/* Lucian UX/UI Prompt #480 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#480 */
-.u480{--p-s1:var(--bg);--p-s2:var(--soft);--p-s3:color-mix(in srgb,var(--fg) 10%,var(--bg));--p-ink:var(--fg);--p-ink2:var(--mut);--p-line:color-mix(in srgb,var(--fg) 9%,transparent);--p-line2:var(--bd);--p-acc:var(--ac);--p-mint:#119C72;--p-danger:#D93A55;--p-sh:rgba(0,0,0,.14);--p-shs:rgba(0,0,0,.3);--u-ease:cubic-bezier(.2,.8,.2,1);
- display:flex;justify-content:center;padding:4px 0;margin:6px 0 10px;-webkit-tap-highlight-color:transparent}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .u480{--p-s1:color-mix(in srgb,var(--fg) 8%,var(--bg));--p-s2:color-mix(in srgb,var(--fg) 14%,var(--bg));--p-s3:color-mix(in srgb,var(--fg) 22%,var(--bg));--p-mint:#7EE8C0;--p-danger:#FF7D8C;--p-sh:rgba(0,0,0,.45);--p-shs:rgba(0,0,0,.72)}}
-:root[data-theme="dark"] .u480{--p-s1:color-mix(in srgb,var(--fg) 8%,var(--bg));--p-s2:color-mix(in srgb,var(--fg) 14%,var(--bg));--p-s3:color-mix(in srgb,var(--fg) 22%,var(--bg));--p-mint:#7EE8C0;--p-danger:#FF7D8C;--p-sh:rgba(0,0,0,.45);--p-shs:rgba(0,0,0,.72)}
-.u480-c{position:relative;width:256px;max-width:100%;padding:15px 14px 7px;border-radius:24px;background:var(--p-s1);color:var(--p-ink);box-shadow:0 0 0 1px var(--p-line),0 1px 2px var(--p-sh),0 22px 44px -26px var(--p-shs)}
-.u480-t{margin:0;font-size:13.5px;font-weight:700;letter-spacing:-.02em;text-align:center;transition:color .3s}
-.u480-t.is-swap{animation:u480-swap .4s var(--u-ease)}
-@keyframes u480-swap{0%{opacity:0;transform:translateY(5px)}}
-.u480-dots{position:relative;display:flex;justify-content:center;gap:14px;height:36px;align-items:center;margin:2px 0 0}
-.u480-d{position:relative;width:12px;height:12px;border-radius:50%;background:var(--p-s3);box-shadow:inset 0 0 0 1px var(--p-line2);transition:background-color .2s,box-shadow .2s,transform .5s cubic-bezier(.5,0,.2,1),opacity .3s}
-.u480-d.is-on{background:var(--p-acc);box-shadow:none;animation:u480-pop .42s cubic-bezier(.34,1.9,.5,1)}
-@keyframes u480-pop{0%{transform:scale(.4)}55%{transform:scale(1.45)}100%{transform:scale(1)}}
-.u480-d.is-off{animation:u480-out .25s var(--u-ease)}
-@keyframes u480-out{from{transform:scale(1.3);background:var(--p-acc)}}
-.u480-dots.is-bad .u480-d{background:var(--p-danger);box-shadow:none}
-.u480-dots.is-shake{animation:u480-shake .5s cubic-bezier(.36,.07,.19,.97)}
-@keyframes u480-shake{12%,52%{transform:translateX(-9px)}32%,72%{transform:translateX(9px)}88%{transform:translateX(-3px)}}
-.u480-dots.is-ok .u480-d{transform:translateX(var(--u480-tx)) scale(.6);background:var(--p-mint);opacity:0;transition:transform .38s cubic-bezier(.6,0,.4,1),background-color .2s,opacity .2s .26s}
-.u480-ok{position:absolute;left:50%;top:50%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:var(--p-mint);display:grid;place-items:center;transform:scale(0);pointer-events:none}
-.u480-dots.is-ok .u480-ok{animation:u480-ok .55s cubic-bezier(.34,1.8,.5,1) .3s forwards}
-@keyframes u480-ok{0%{transform:scale(.3)}100%{transform:scale(1)}}
-.u480-ok svg{width:20px;height:20px;fill:none;stroke:var(--p-s1);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-.u480-ok path{stroke-dasharray:22;stroke-dashoffset:22}
-.u480-dots.is-ok .u480-ok path{animation:u480-draw .35s var(--u-ease) .55s forwards}
-@keyframes u480-draw{to{stroke-dashoffset:0}}
-.u480-m{height:15px;margin:0 0 5px;font-size:11.5px;font-weight:650;color:var(--p-danger);text-align:center;opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .35s cubic-bezier(.34,1.6,.5,1)}
-.u480-m.is-on{opacity:1;transform:none}
-.u480-pad{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:41px;transition:opacity .3s}
-.u480-pad.is-lock{opacity:.4;pointer-events:none}
-.u480-k{position:relative;display:grid;place-items:center;padding:0;border:0;border-radius:14px;background:none;color:var(--p-ink);font-family:inherit;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:0;cursor:pointer;touch-action:manipulation}
-.u480-k::before{content:"";position:absolute;left:50%;top:50%;width:46px;height:38px;margin:-19px 0 0 -23px;border-radius:14px;background:var(--p-s2);opacity:0;transform:scale(.5);transition:opacity .25s,transform .4s cubic-bezier(.34,1.6,.5,1)}
-.u480-k:hover::before{opacity:.7;transform:scale(.9)}
-.u480-k.is-down::before,.u480-k:active::before{opacity:1;transform:scale(1.06);transition-duration:.08s,.12s}
-.u480-k span{position:relative;display:block;transition:transform .3s cubic-bezier(.34,1.8,.5,1),opacity .18s,filter .18s}
-.u480-k.is-down span,.u480-k:active span{transform:scale(.86)}
-.u480-k.is-mix span{opacity:0;transform:translateY(-8px) scale(.8);filter:blur(3px)}
-.u480 .u480-k:focus-visible{outline:none}
-.u480 .u480-k:focus-visible::before{opacity:1;transform:none;box-shadow:inset 0 0 0 2px var(--p-acc)}
-.u480-fn{font-size:12.5px;font-weight:650;color:var(--p-ink2)}
-.u480-fn svg{position:relative;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.u480-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0}
-@media (prefers-reduced-motion:reduce){.u480,.u480 *,.u480 *::before{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+/* Lucian UX/UI Prompt #406 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#406 */
+.u406{--k-s1:var(--bg);--k-ink:var(--fg);--k-ink3:var(--mut);--k-line2:var(--bd);--k-acc:var(--ac);--k-soft:var(--glow);--k-mint:#119C72;--k-danger:#D93A55;--k-ck:#fff;--u-ease:cubic-bezier(.2,.8,.2,1);--u-spring:cubic-bezier(.34,1.45,.64,1);
+ display:flex;flex-direction:column;align-items:center;padding:4px 0;margin:6px 0 10px;color:var(--k-ink);-webkit-tap-highlight-color:transparent}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .u406{--k-s1:color-mix(in srgb,var(--fg) 8%,var(--bg));--k-mint:#7EE8C0;--k-danger:#FF7D8C;--k-ck:#0B0C12}}
+:root[data-theme="dark"] .u406{--k-s1:color-mix(in srgb,var(--fg) 8%,var(--bg));--k-mint:#7EE8C0;--k-danger:#FF7D8C;--k-ck:#0B0C12}
+.u406-t{margin:0 0 14px;font-size:13.5px;font-weight:700;letter-spacing:-.02em;text-align:center;transition:color .3s}
+.u406-t.is-swap{animation:u406-swap .4s var(--u-ease)}
+@keyframes u406-swap{0%{opacity:0;transform:translateY(5px)}}
+.u406-wrap{position:relative;max-width:100%}
+.u406-row{position:relative;display:grid;grid-template-columns:repeat(6,42px);gap:8px}
+.u406-row.is-shake{animation:u406-shake .45s cubic-bezier(.36,.07,.19,.97)}
+@keyframes u406-shake{15%{transform:translateX(-8px)}35%{transform:translateX(7px)}55%{transform:translateX(-4px)}75%{transform:translateX(2px)}}
+.u406-b{position:relative;width:42px;height:54px;border-radius:12px;background:var(--k-s1);box-shadow:inset 0 0 0 1px var(--k-line2);transition:box-shadow .2s,background .3s,transform .55s var(--u-spring),opacity .3s;transition-delay:0s,0s,calc(var(--d,0) * 35ms),calc(var(--d,0) * 35ms)}
+.u406-b:hover,.u406-b.is-fill{box-shadow:inset 0 0 0 1px var(--k-ink3)}
+.u406-b.is-cur{box-shadow:inset 0 0 0 1.5px var(--k-acc),0 0 0 4px var(--k-soft)}
+.u406-in{position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;border:0;border-radius:12px;background:none;text-align:center;font:inherit;font-size:22px;color:transparent;caret-color:var(--k-acc);outline:none}
+.u406 .u406-in:focus-visible{outline:none}
+.u406-g{position:absolute;inset:0;display:grid;place-items:center;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--k-ink);pointer-events:none}
+.u406-g.is-pop{animation:u406-pop .45s var(--u-spring)}
+@keyframes u406-pop{from{opacity:0;transform:translateY(10px) scale(.4)}}
+.u406-row.is-err .u406-b{box-shadow:inset 0 0 0 1px var(--k-danger);background:color-mix(in srgb,var(--k-danger) 7%,var(--k-s1))}
+.u406-row.is-busy .u406-b{animation:u406-wave .8s var(--u-ease) infinite;animation-delay:calc(var(--i) * 70ms)}
+@keyframes u406-wave{40%{transform:translateY(-4px)}}
+.u406-row.is-merge .u406-b{transform:translateX(var(--mx)) scale(.35);opacity:0;background:var(--k-mint);box-shadow:none}
+.u406-row.is-merge .u406-g{opacity:0;transition:opacity .15s}
+.u406-ck{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;opacity:0;transform:scale(.2);pointer-events:none;transition:transform .6s var(--u-spring) .18s,opacity .2s .18s}
+.u406-ck circle{fill:var(--k-mint)}
+.u406-ck path{fill:none;stroke:var(--k-ck);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:32;transition:stroke-dashoffset .45s var(--u-ease) .45s}
+.u406-row.is-merge+.u406-ck{opacity:1;transform:none}
+.u406-row.is-merge+.u406-ck path{stroke-dashoffset:0}
+.u406-m{min-height:16px;margin:12px 0 0;font-size:12px;font-weight:650;color:var(--k-danger);text-align:center;opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .35s cubic-bezier(.34,1.6,.5,1)}
+.u406-m.is-on{opacity:1;transform:none}
+.u406-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0}
+@media (max-width:360px){.u406-row{grid-template-columns:repeat(6,36px);gap:6px}.u406-b{width:36px;height:48px}.u406-row.is-merge .u406-b{transform:translateX(calc(var(--mx) * .86)) scale(.35)}}
+@media (prefers-reduced-motion:reduce){.u406,.u406 *,.u406 *::before{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}}
 /* Lucian UX/UI Prompt #354 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#354 */
 .u354{--m-s1:var(--bg);--m-s2:var(--soft);--m-ink:var(--fg);--m-ink2:var(--mut);--m-ink3:color-mix(in srgb,var(--fg) 45%,var(--bg));--m-line:color-mix(in srgb,var(--fg) 9%,transparent);--m-sh:rgba(0,0,0,.3);
  position:relative;z-index:6;max-width:420px;margin:0 auto 14px;text-align:left;-webkit-tap-highlight-color:transparent}
@@ -462,6 +507,14 @@ html.u289-ln #app a,html.u289-ln #nav a{text-decoration:underline;text-decoratio
 </div>
 
 <script>
+/* ===== QUẢN TRỊ CHỈ VÀO QUA ĐƯỜNG DẪN /admin (vẫn cần mật khẩu) ===== */
+let ADM_OK=false;
+(function(){
+ const m=/\/admin\/?$/i.test(location.pathname);
+ try{if(m)sessionStorage.setItem("phong_adm","1")}catch(e){}
+ try{ADM_OK=m||sessionStorage.getItem("phong_adm")==="1"}catch(e){ADM_OK=m}
+ if(m)try{history.replaceState(null,"",location.pathname.replace(/admin\/?$/i,"")+"#admin")}catch(e){}
+})();
 /* ===== MẶC ĐỊNH (dùng khi Admin chưa lưu gì) ===== */
 const DEF={
  tags:[
@@ -612,11 +665,191 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 
+/* ===== NGÔN NGỮ VI / EN (dịch giao diện cố định; nội dung Admin tự nhập giữ nguyên) ===== */
+const I18N_EN={
+ exact:{
+  "TRANG CHỦ":"HOME","QUẢN TRỊ":"ADMIN","Menu":"Menu","Menu chính":"Main menu","Thu gọn menu":"Collapse menu","Mở rộng menu":"Expand menu",
+  "Đổi giao diện":"Toggle theme","Ngôn ngữ / Language":"Language","Đóng":"Close",
+  "Phát nhạc":"Music player","Phát hoặc dừng nhạc":"Play or pause music","Chưa có nhạc":"No music yet","Bài kế tiếp":"Next track",
+  "Cài đặt hiển thị":"Display settings","Cỡ chữ":"Text size","Chữ nhỏ hơn":"Smaller text","Chữ lớn hơn":"Larger text","Đặt lại":"Reset",
+  "Tương phản cao":"High contrast","Nổi bật liên kết":"Highlight links","Giãn dòng rộng":"Wide line spacing",
+  "Mở cài đặt hiển thị (trợ năng)":"Open display settings (accessibility)","Mở trình phát nhạc":"Open music player","Mở menu nhạc và trợ năng":"Open music & accessibility menu",
+  "API đang tạo link, vui lòng chờ":"Creating link, please wait","Đang tạo link":"Creating link","Đang chờ":"Waiting","Đang tạo":"Creating",
+  "Tiến trình tạo link":"Link creation progress","Đang chờ Link4M phản hồi":"Waiting for Link4M to respond","Nhật ký tạo link":"Link creation log",
+  "Gửi yêu cầu tới Link4M…":"Sending request to Link4M…","Nhận link rút gọn":"Receiving short link","Nhận link rút gọn…":"Receiving short link…",
+  "Gắn mốc 10 phút":"Setting the 10-minute mark","Gắn mốc 10 phút…":"Setting the 10-minute mark…","Chuyển sang trang vượt link":"Going to the link page",
+  "Chuyển sang trang vượt link…":"Going to the link page…","Đang chuyển hướng…":"Redirecting…",
+  "👁 Người dùng":"👁 Users","✅ Vượt link":"✅ Links passed","📥 Lấy file":"📥 Files obtained","🟢 Online":"🟢 Online",
+  "📢 BẢNG THÔNG BÁO":"📢 ANNOUNCEMENTS","Hiện chưa có thông báo nào.":"No announcements yet.",
+  "🔥 ĐANG HOT":"🔥 HOT NOW","🌐 KHÁM PHÁ TẤT CẢ DANH MỤC":"🌐 EXPLORE ALL CATEGORIES","🌐 TẤT CẢ":"🌐 ALL","TẤT CẢ":"ALL","Danh mục":"Categories",
+  "Tìm kiếm mục":"Search items","Tìm kiếm mục...":"Search items...","Không tìm thấy mục nào":"No items found",
+  "Mở mục":"Open item","MỞ MỤC":"OPEN ITEM","← TRANG CHỦ":"← HOME","← QUAY LẠI":"← BACK","Chưa có mục nào trong Tag này.":"No items in this tag yet.",
+  "⚠️ LƯU Ý KHI TREO":"⚠️ IDLING NOTES","LƯU Ý KHI TREO":"IDLING NOTES","Lưu ý khi treo":"Idling notes","🎬 CÁCH CÀI SETTING":"🎬 HOW TO SET UP","CÁCH CÀI SETTING":"HOW TO SET UP",
+  "Vượt link":"Pass link","Cảm ơn":"Thanks","Lấy file":"Get file","Các bước lấy file":"File retrieval steps",", đã hoàn thành":", completed",", bước hiện tại":", current step",
+  "CẢM ƠN BẠN ĐÃ VƯỢT LINK ỦNG HỘ WEBSITE":"THANK YOU FOR PASSING THE LINK TO SUPPORT THE WEBSITE","Cảm ơn từ Phong":"Thanks from Phong",
+  "TIẾP THEO":"NEXT","Nhấn vào hình để phát lời cảm ơn.":"Tap the picture to play the thank-you message.",
+  "LẤY FILE":"GET FILE","VƯỢT LINK THÀNH CÔNG":"LINK PASSED SUCCESSFULLY","🔓 VƯỢT LINK":"🔓 PASS LINK","VƯỢT LINK":"PASS LINK","ĐANG TẠO LINK...":"CREATING LINK...",
+  "⏳ Sau khi tạo link xong, bạn có 10 phút để vượt link, nghe cảm ơn và lấy file.":"⏳ After the link is created, you have 10 minutes to pass it, listen to the thanks and get the file.",
+  "NHẬP CODE":"ENTER CODE","🔑 Có code? Nhập vào đây để vào thẳng trang Cảm ơn, không cần vượt link.":"🔑 Have a code? Enter it here to go straight to the Thanks page without passing the link.",
+  "Nhập code để bỏ qua vượt link":"Enter a code to skip the link","Đang kiểm tra code...":"Checking code...","✅ Code hợp lệ!":"✅ Valid code!",
+  "Code không đúng định dạng NVP-KEY-XXX-XXX.":"Invalid code format (NVP-KEY-XXX-XXX).","Chưa kết nối máy chủ nên chưa dùng được code.":"Not connected to the server, so codes can't be used yet.",
+  "Code này đã hết lượt dùng.":"This code has no uses left.","Code này không dùng được cho mục này.":"This code can't be used for this item.","Code không tồn tại.":"This code does not exist.",
+  "Không kiểm tra được code. Vui lòng thử lại sau.":"Couldn't check the code. Please try again later.","Sai 5 lần. Thử lại sau 30 giây.":"Wrong 5 times. Try again in 30 seconds.",
+  "Đã hết 10 phút. Vui lòng bấm VƯỢT LINK để tạo link mới.":"The 10 minutes are up. Please press PASS LINK to create a new link.",
+  "Bạn hài lòng với mục này không?":"Are you happy with this item?","Mức độ hài lòng":"Satisfaction level","Chưa tốt":"Not good","Cần cải thiện":"Needs improvement",
+  "Tạm ổn":"Okay","Tốt":"Good","Tuyệt vời":"Excellent","Cảm ơn bạn đã đánh giá!":"Thanks for your rating!"
+ },
+ rules:[
+  [/^CHÀO BẠN ĐẾN VỚI (.+)$/,"WELCOME TO $1"],
+  [/^BẠN CẦN VƯỢT LINK ĐỂ LẤY (.+)$/,"YOU NEED TO PASS THE LINK TO GET $1"],
+  [/^Tên file: (.+) \| Trạng thái: Sẵn sàng$/,"File name: $1 | Status: Ready"],
+  [/^⏳ Thời gian còn lại: (.+) — hãy nghe cảm ơn và lấy file trước khi hết giờ\.$/,"⏳ Time left: $1 — listen to the thanks and get your file before time runs out."],
+  [/^Mở trang (.+) →$/,"Open page $1 →"],
+  [/^(\d[\d.,]*) kết quả$/,"$1 results"],
+  [/^Nhập sai nhiều lần\. Thử lại sau (\d+) giây\.$/,"Too many wrong attempts. Try again in $1 s."],
+  [/^Link4M báo lỗi: (.*)$/,"Link4M error: $1"],
+  [/^Hiện mục của (.+)$/,"Show items in $1"],
+  [/^Ẩn mục của (.+)$/,"Hide items in $1"]
+ ]
+};
+let LANG="vi";
+try{const s=localStorage.getItem("phong_lang");if(s==="en"||s==="vi")LANG=s}catch(e){}
+document.documentElement.lang=LANG;
+const trRec=new WeakMap(),trAtt=new WeakMap(),TR_ATTR=["aria-label","placeholder","title","alt"];
+function trRaw(k){
+ const m=I18N_EN;
+ if(Object.prototype.hasOwnProperty.call(m.exact,k))return m.exact[k];
+ for(let i=0;i<m.rules.length;i++){if(m.rules[i][0].test(k))return k.replace(m.rules[i][0],m.rules[i][1])}
+ return null;
+}
+function trText(s){
+ const k=s.trim();if(!k)return null;
+ let v=trRaw(k);
+ if(v===null){
+  const p=k.match(/^(\p{Extended_Pictographic}\uFE0F?\s*)([\s\S]+)$/u);
+  if(p){const r=trRaw(p[2]);if(r!==null)v=p[1]+r}
+ }
+ return v===null?null:s.replace(k,()=>v);
+}
+function trAdmin(){return location.hash.slice(1).split("-")[0]==="admin"}
+function trSkip(n){
+ const p=n.nodeType===1?n:n.parentElement;if(!p)return true;
+ if(/^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT)$/.test(p.tagName))return true;
+ if(p.closest("[data-nt]"))return true;
+ if(trAdmin()&&p.closest("#app"))return true;
+ return false;
+}
+function trNode(n){
+ if(trSkip(n))return;
+ const r=trRec.get(n),o=r&&n.data===r.t?r.o:n.data;
+ if(LANG==="en"){
+  const t=trText(o);
+  if(t!==null){if(t!==n.data){trRec.set(n,{o:o,t:t});n.data=t}}
+  else if(r)trRec.delete(n);
+ }else if(r&&n.data===r.t){n.data=r.o;trRec.delete(n)}
+}
+function trEl(e){
+ if(trSkip(e))return;
+ let rec=trAtt.get(e);
+ TR_ATTR.forEach(a=>{
+  if(!e.hasAttribute(a))return;
+  const cur=e.getAttribute(a),r=rec&&rec[a],o=r&&cur===r.t?r.o:cur;
+  if(LANG==="en"){
+   const t=trText(o);
+   if(t!==null){if(t!==cur){rec=rec||{};rec[a]={o:o,t:t};trAtt.set(e,rec);e.setAttribute(a,t)}}
+   else if(r)delete rec[a];
+  }else if(r&&cur===r.t){e.setAttribute(a,r.o);delete rec[a]}
+ });
+}
+function trWalk(root){
+ if(root.nodeType===3){trNode(root);return}
+ if(root.nodeType!==1&&root.nodeType!==9)return;
+ const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),a=[];let n;
+ while((n=w.nextNode()))a.push(n);
+ a.forEach(trNode);
+ if(root.nodeType===1)trEl(root);
+ root.querySelectorAll("*").forEach(trEl);
+}
+const trObs=new MutationObserver(ms=>{
+ trObs.disconnect();
+ try{
+  ms.forEach(m=>{
+   if(m.type==="childList")m.addedNodes.forEach(trWalk);
+   else if(m.type==="characterData")trNode(m.target);
+   else if(m.type==="attributes")trEl(m.target);
+  });
+ }finally{trObs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR})}
+});
+trObs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR});
+function setLang(l){
+ if(l!=="vi"&&l!=="en")return;
+ LANG=l;try{localStorage.setItem("phong_lang",l)}catch(e){}
+ document.documentElement.lang=l;
+ trObs.disconnect();
+ try{trWalk(document.body)}finally{trObs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR})}
+}
+/* ===== CHỌN NGÔN NGỮ (#448) ===== */
+function langPicker(){
+ const root=el("div","u448");root.setAttribute("data-nt","1");
+ const OPT=[["vi","Tiếng Việt","VI"],["en","English","EN"]],CHK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6.5"/></svg>';
+ let cur=Math.max(0,OPT.findIndex(o=>o[0]===LANG)),act=cur;
+ root.innerHTML='<div class="u448-w"><button type="button" class="u448-b" aria-haspopup="listbox" aria-expanded="false"><span class="u448-g" aria-hidden="true"><svg viewBox="0 0 22 22"><defs><clipPath class="cp"><circle cx="11" cy="11" r="8.6"/></clipPath></defs><circle cx="11" cy="11" r="8.6"/><g class="clip"><g class="mer"><path d="M-13 2.4c-4.2 2.6-4.2 14.6 0 17.2M-13 2.4c4.2 2.6 4.2 14.6 0 17.2M-5 2.4c-4.2 2.6-4.2 14.6 0 17.2M-5 2.4c4.2 2.6 4.2 14.6 0 17.2M3 2.4c-4.2 2.6-4.2 14.6 0 17.2M3 2.4c4.2 2.6 4.2 14.6 0 17.2M11 2.4c-4.2 2.6-4.2 14.6 0 17.2M11 2.4c4.2 2.6 4.2 14.6 0 17.2M19 2.4c-4.2 2.6-4.2 14.6 0 17.2M19 2.4c4.2 2.6 4.2 14.6 0 17.2M27 2.4c-4.2 2.6-4.2 14.6 0 17.2M27 2.4c4.2 2.6 4.2 14.6 0 17.2"/></g><path d="M2.6 8.2h16.8M2.6 13.8h16.8"/></g></svg></span><span class="u448-lb"><span></span></span><svg class="u448-cv" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.6 6 7.6l3-3"/></svg></button><ul class="u448-p" role="listbox" aria-label="Ngôn ngữ / Language" tabindex="-1">'+OPT.map((o,i)=>'<li class="u448-o" role="option" lang="'+o[0]+'" data-code="'+o[2]+'" style="--i:'+i+'"><span>'+o[1]+'</span><em>'+o[2]+'</em>'+CHK+'</li>').join("")+'</ul></div><p class="u448-live" role="status"></p>';
+ const b=root.querySelector(".u448-b"),p=root.querySelector(".u448-p"),lb=root.querySelector(".u448-lb"),g=root.querySelector(".u448-g"),w=root.querySelector(".u448-w"),live=root.querySelector(".u448-live"),os=[].slice.call(root.querySelectorAll(".u448-o"));
+ const uid="u448"+Math.random().toString(36).slice(2,7),cp=g.querySelector(".cp");
+ cp.id=uid+"c";g.querySelector(".clip").setAttribute("clip-path","url(#"+cp.id+")");
+ p.id=uid+"p";b.setAttribute("aria-controls",p.id);b.setAttribute("aria-label","Ngôn ngữ / Language");
+ os.forEach((o,k)=>{o.id=uid+"o"+k;o.setAttribute("aria-selected",String(k===cur))});
+ const first=lb.firstChild;first.textContent=OPT[cur][1];first.lang=OPT[cur][0];
+ const fit=()=>{const s=lb.querySelector("span:not(.is-out)");if(s&&s.offsetWidth)lb.style.width=s.offsetWidth+"px"};
+ fit();
+ const mo=new MutationObserver(()=>{if(!root.isConnected){mo.disconnect();return}fit()});mo.observe(nav,{attributes:true,attributeFilter:["class"]});
+ function setAct(k){act=(k+os.length)%os.length;os.forEach((o,n)=>o.classList.toggle("is-act",n===act));p.setAttribute("aria-activedescendant",os[act].id)}
+ function open(){
+  if(!nav.classList.contains("is-wide"))wideNav(true);
+  root.classList.add("is-open");b.setAttribute("aria-expanded","true");setAct(cur);p.focus({preventScroll:true});
+ }
+ function close(back){root.classList.remove("is-open");b.setAttribute("aria-expanded","false");os.forEach(o=>o.classList.remove("is-act"));if(back)b.focus({preventScroll:true})}
+ function pick(k){
+  close(true);if(k===cur)return;cur=k;
+  os.forEach((o,n)=>o.setAttribute("aria-selected",String(n===k)));
+  const name=os[k].querySelector("span").textContent;
+  lb.querySelectorAll(".is-out").forEach(s=>s.remove());
+  const old=lb.querySelector("span"),s=document.createElement("span");
+  s.textContent=name;s.lang=os[k].lang;s.className="is-in";old.classList.add("is-out");lb.appendChild(s);
+  setTimeout(()=>{if(old.isConnected)old.remove()},420);
+  fit();g.classList.remove("is-spin");void g.offsetWidth;g.classList.add("is-spin");
+  live.textContent="Language: "+name;
+  setLang(OPT[k][0]);
+ }
+ b.addEventListener("click",()=>{if(root.classList.contains("is-open"))close();else open()});
+ b.addEventListener("keydown",e=>{if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();open()}});
+ os.forEach((o,k)=>{o.addEventListener("click",()=>pick(k));o.addEventListener("pointerenter",()=>{if(root.classList.contains("is-open"))setAct(k)})});
+ p.addEventListener("keydown",e=>{
+  if(e.key==="ArrowDown"){e.preventDefault();setAct(act+1)}
+  else if(e.key==="ArrowUp"){e.preventDefault();setAct(act-1)}
+  else if(e.key==="Home"){e.preventDefault();setAct(0)}
+  else if(e.key==="End"){e.preventDefault();setAct(os.length-1)}
+  else if(e.key==="Enter"||e.key===" "){e.preventDefault();pick(act)}
+  else if(e.key==="Escape"){e.preventDefault();e.stopPropagation();close(true)}
+  else if(e.key==="Tab")close();
+ });
+ function outside(e){
+  if(!root.isConnected){document.removeEventListener("pointerdown",outside,true);return}
+  if(root.classList.contains("is-open")&&!w.contains(e.target))close();
+ }
+ document.addEventListener("pointerdown",outside,true);
+ return root;
+}
 /* ===== MENU 3 GẠCH ===== */
 const nav=$("nav"),bd=$("bd");
-let navSig="";
+let navSig="",lastNavK="";const navOpen=new Set();
 function sa(e,o){for(const k in o)e.setAttribute(k,o[k]);return e}
+function wideNav(w){
+ nav.classList.toggle("is-wide",w);
+ const t=nav.querySelector(".u040-tog");if(t){t.setAttribute("aria-expanded",String(w));t.setAttribute("aria-label",w?"Thu gọn menu":"Mở rộng menu")}
+}
 function menu(on){
+ if(on)wideNav(true);
  nav.classList.toggle("show",on);bd.classList.toggle("show",on);$("burger").setAttribute("aria-expanded",String(on));
  if(on)setTimeout(()=>{const c=nav.querySelector('[aria-current="page"]')||nav.querySelector(".u040-it");if(c)c.focus({preventScroll:true})},60);
 }
@@ -631,6 +864,17 @@ function navKey(){
  if(k==="item"||k==="thanks"||k==="done"){const it=cfg.items.find(x=>x.key===a);if(it)return"tag-"+it.tag}
  return"home";
 }
+function setGroup(sl,o){
+ if(o)navOpen.add(sl);else navOpen.delete(sl);
+ const sub=document.getElementById("u040s-"+sl);if(!sub)return;
+ sub.classList.toggle("is-open",o);
+ const ex=sub.parentNode.querySelector(".u040-ex"),it=sub.parentNode.querySelector(".u040-it");
+ if(ex){ex.setAttribute("aria-expanded",String(o));ex.setAttribute("aria-label",(o?"Ẩn mục của ":"Hiện mục của ")+(it?it.title:""))}
+}
+function navItemKey(){
+ const h=location.hash.slice(1),i=h.indexOf("-"),k=i<0?h:h.slice(0,i),a=(i<0?"":h.slice(i+1)).split("~")[0];
+ return(k==="item"||k==="thanks"||k==="done")?a:"";
+}
 function buildNav(){
  const wide=nav.classList.contains("is-wide");
  const top=el("div","u040-top");top.append(sa(el("span","u040-logo"),{"aria-hidden":"true"}),el("span","u040-name","PHONG WEB"));
@@ -638,22 +882,39 @@ function buildNav(){
  tog.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg>';
  tog.onclick=()=>{const w=!nav.classList.contains("is-wide");nav.classList.toggle("is-wide",w);tog.setAttribute("aria-expanded",String(w));tog.setAttribute("aria-label",w?"Thu gọn menu":"Mở rộng menu")};
  const ul=el("ul","u040-nav"),hl=sa(el("li","u040-hl"),{role:"presentation"});ul.append(hl);
- const rows=[["home","#home","🏠","TRANG CHỦ"]].concat(cfg.tags.map(t=>["tag-"+t.slug,"#tag-"+t.slug,t.icon,t.name]),[["admin","#admin","⚙️","QUẢN TRỊ"]]);
+ const rows=[["home","#home","🏠","TRANG CHỦ"]].concat(cfg.tags.map(t=>["tag-"+t.slug,"#tag-"+t.slug,t.icon,t.name,t.slug]));
  rows.forEach((r,i)=>{
-  const li=el("li"),a=lk(r[1],"u040-it");a.dataset.k=r[0];a.title=r[3];a.style.setProperty("--i",i);
+  const li=el("li"),row=el("div","u040-row"),a=lk(r[1],"u040-it");a.dataset.k=r[0];a.title=r[3];a.style.setProperty("--i",i);
   a.append(sa(el("span","u040-ic",r[2]),{"aria-hidden":"true"}),el("span","u040-lb",r[3]));
-  li.append(a);ul.append(li);
+  row.append(a);li.append(row);
+  if(r[4]){
+   const sl=r[4],items=cfg.items.filter(x=>x.tag===sl),open=navOpen.has(sl);
+   const ex=sa(el("button","u040-ex","",{type:"button"}),{"aria-expanded":String(open),"aria-label":(open?"Ẩn mục của ":"Hiện mục của ")+r[3]});
+   ex.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
+   const sub=el("div","u040-sub"+(open?" is-open":"")),sl2=el("ul","u040-subl");
+   sub.id="u040s-"+sl;ex.setAttribute("aria-controls",sub.id);
+   if(!items.length)sl2.append(el("li","u040-se","Chưa có mục nào trong Tag này."));
+   items.forEach(x=>{const l=el("li"),b2=lk("#item-"+x.key,"u040-sit");b2.dataset.ik=x.key;b2.append(sa(el("span","u040-sic",x.icon||"📦"),{"aria-hidden":"true"}),el("span","",x.name));l.append(b2);sl2.append(l)});
+   sub.append(sl2);
+   ex.onclick=()=>{setGroup(sl,!navOpen.has(sl));setActive()};
+   sub.addEventListener("transitionend",e=>{if(e.target===sub)setActive()});
+   row.append(ex);li.append(sub);
+  }
+  ul.append(li);
  });
  ul.addEventListener("keydown",e=>{
   const its=Array.prototype.slice.call(ul.querySelectorAll(".u040-it")),i=its.indexOf(document.activeElement);if(i<0)return;
   const d=e.key==="ArrowDown"?1:e.key==="ArrowUp"?-1:0;
   if(d){e.preventDefault();its[(i+d+its.length)%its.length].focus()}
  });
- nav.replaceChildren(top,tog,ul);
+ nav.replaceChildren(top,tog,langPicker(),ul);
 }
 function setActive(){
  const k=navKey(),hl=nav.querySelector(".u040-hl");let cur=null;
  nav.querySelectorAll(".u040-it").forEach(a=>{if(a.dataset.k===k){a.setAttribute("aria-current","page");cur=a}else a.removeAttribute("aria-current")});
+ const ik=navItemKey();
+ nav.querySelectorAll(".u040-sit").forEach(a=>{if(ik&&a.dataset.ik===ik)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+ if(k!==lastNavK){lastNavK=k;if(k.indexOf("tag-")===0)setGroup(k.slice(4),true)}
  if(!hl)return;
  if(!cur){hl.style.opacity="0";return}
  hl.style.opacity="";
@@ -1144,74 +1405,97 @@ function tagSel(o,k){
  s.value=o[k]||(draft.tags[0]&&draft.tags[0].slug)||"";s.onchange=()=>{o[k]=s.value};return s;
 }
 function amsg(t,bad){const m=$("amsg");if(m){m.textContent=t;m.style.color=bad?"#e04b5f":"#0a8a4f";if(m.scrollIntoView)m.scrollIntoView({block:"nearest",behavior:"smooth"})}}
-/* ===== BÀN PHÍM PIN 6 SỐ (#480) ===== */
-let pinKey=null;
+/* ===== Ô NHẬP MẬT KHẨU 6 SỐ (#406) ===== */
 function pinPad(verify,onOk,onBad){
- const root=el("div","u480");
- root.innerHTML='<section class="u480-c"><p class="u480-t">Nhập mật khẩu quản trị (6 số)</p><div class="u480-dots" role="img" aria-label="Số đã nhập">'+'<i class="u480-d"></i>'.repeat(6)+'<span class="u480-ok"><svg viewBox="0 0 24 24"><path d="m5.5 12.5 4.5 4.5 8.5-9.5"/></svg></span></div><p class="u480-m" aria-live="polite"></p><div class="u480-pad">'+'<button type="button" class="u480-k"><span></span></button>'.repeat(9)+'<button type="button" class="u480-k u480-fn" data-act="mix"><span>Đảo số</span></button><button type="button" class="u480-k"><span></span></button><button type="button" class="u480-k u480-fn" data-act="del" aria-label="Xóa"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5h10a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-6-6.5Z"/><path d="m11.5 9.5 5 5m0-5-5 5"/></svg></span></button></div></section><p class="u480-live" role="status"></p>';
- const q=s=>root.querySelector(s),title=q(".u480-t"),dotsEl=q(".u480-dots"),dots=[].slice.call(root.querySelectorAll(".u480-d")),msg=q(".u480-m"),pad=q(".u480-pad"),live=q(".u480-live");
- const keys=[].slice.call(root.querySelectorAll(".u480-k:not(.u480-fn)"));
+ const root=el("div","u406");
+ root.innerHTML='<p class="u406-t">Nhập mật khẩu quản trị (6 số)</p><div class="u406-wrap"><div class="u406-row" role="group" aria-label="Mật khẩu quản trị 6 số"></div><svg class="u406-ck" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="30"/><path d="M18 30.5l8 8L42.5 22"/></svg></div><p class="u406-m" aria-live="polite"></p><p class="u406-live" role="status"></p>';
+ const q=s=>root.querySelector(s),title=q(".u406-t"),row=q(".u406-row"),msg=q(".u406-m"),live=q(".u406-live");
  const rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
- const T={title:"Nhập mật khẩu quản trị (6 số)",ok:"Đã xác thực",n:" số đã nhập"};
- let val="",tries=0,busy=false;
+ const T={title:"Nhập mật khẩu quản trị (6 số)",digit:k=>"Số thứ "+k,ok:"Đã xác thực"};
+ let vals=["","","","","",""],busy=false,tries=0;
+ const bs=[],ins=[],gs=[];
+ for(let k=0;k<6;k++){
+  const b=document.createElement("div");
+  b.className="u406-b";b.style.setProperty("--i",k);b.style.setProperty("--mx",((2.5-k)*50)+"px");b.style.setProperty("--d",Math.abs(2.5-k)*2);
+  b.innerHTML='<input class="u406-in" inputmode="numeric" pattern="[0-9]*" autocomplete="'+(k?"off":"one-time-code")+'"><span class="u406-g" aria-hidden="true"></span>';
+  b.querySelector("input").setAttribute("aria-label",T.digit(k+1));
+  row.appendChild(b);bs.push(b);ins.push(b.querySelector("input"));gs.push(b.querySelector(".u406-g"));
+ }
  function later(fn,ms){return setTimeout(()=>{if(root.isConnected)fn()},ms)}
- function shuffle(anim){
-  const d="0123456789".split("");
-  for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)),x=d[i];d[i]=d[j];d[j]=x}
-  keys.forEach((k,i)=>{
-   const put=()=>{k.dataset.d=d[i];k.firstChild.textContent=d[i];k.classList.remove("is-mix")};
-   if(!anim||rm){put();return}
-   later(()=>k.classList.add("is-mix"),i*22);later(put,i*22+170);
+ function render(popAt){
+  ins.forEach((d,j)=>{
+   d.value=vals[j];bs[j].classList.toggle("is-fill",!!vals[j]);
+   if(gs[j].textContent!==vals[j]){
+    gs[j].textContent=vals[j];
+    if(vals[j]&&popAt&&popAt.indexOf(j)>=0){gs[j].classList.remove("is-pop");void gs[j].offsetWidth;gs[j].classList.add("is-pop")}
+   }
   });
  }
- function paint(){
-  dots.forEach((d,i)=>{
-   const on=i<val.length;
-   if(on&&!d.classList.contains("is-on")){d.classList.remove("is-off");d.classList.add("is-on")}
-   if(!on&&d.classList.contains("is-on")){d.classList.remove("is-on");d.classList.add("is-off")}
-  });
-  live.textContent=val.length+T.n;
+ function cur(j){
+  bs.forEach((b,n)=>b.classList.toggle("is-cur",n===j));
+  if(j>=0&&ins[j])ins[j].focus({preventScroll:true});
  }
- function press(k){k.classList.add("is-down");later(()=>k.classList.remove("is-down"),140)}
- function put(dg){if(busy||val.length>=6)return;val+=dg;if(val.length===1)msg.classList.remove("is-on");paint();if(val.length===6)later(check,rm?0:260)}
- function del(){if(busy||!val)return;val=val.slice(0,-1);paint()}
  function swapTitle(t){title.textContent=t;title.classList.remove("is-swap");void title.offsetWidth;title.classList.add("is-swap")}
- function check(){
-  busy=true;
-  if(verify(val)){
-   const mid=dotsEl.getBoundingClientRect(),sc=mid.width/dotsEl.offsetWidth||1,cx=mid.left+mid.width/2;
-   dots.forEach(d=>{const r=d.getBoundingClientRect();d.style.setProperty("--u480-tx",(cx-(r.left+r.width/2))/sc+"px")});
-   dotsEl.classList.add("is-ok");pad.classList.add("is-lock");msg.classList.remove("is-on");
-   title.style.color="var(--p-mint)";swapTitle(T.ok);
-   later(onOk,rm?300:1100);
-   return;
-  }
-  tries+=1;if(onBad)onBad();
-  dotsEl.classList.add("is-bad","is-shake");
-  msg.textContent=tries>=5?"Sai 5 lần. Thử lại sau 30 giây.":"Sai mật khẩu ("+tries+"/5)";
-  msg.classList.add("is-on");
-  later(()=>{
-   dotsEl.classList.remove("is-shake","is-bad");val="";paint();shuffle(true);
-   if(tries>=5){pad.classList.add("is-lock");later(()=>{tries=0;pad.classList.remove("is-lock");msg.classList.remove("is-on");busy=false},30000)}
-   else later(()=>{busy=false},rm?0:400);
-  },rm?300:620);
+ function fill(i,text){
+  const ds=String(text).replace(/\D/g,"").split("");
+  if(!ds.length||ds[0]==="")return;
+  if(ds.length>=6)i=0;
+  const changed=[];
+  ds.forEach((c,j)=>{if(i+j<6){vals[i+j]=c;changed.push(i+j)}});
+  row.classList.remove("is-err");msg.classList.remove("is-on");
+  render(changed);
+  const next=vals.indexOf("");
+  if(next<0){cur(-1);ins[5].blur();check()}else cur(Math.max(next,Math.min(5,i+ds.length)));
  }
- pad.addEventListener("pointerdown",e=>{const k=e.target.closest(".u480-k");if(k)press(k)});
- pad.addEventListener("click",e=>{
-  const k=e.target.closest(".u480-k");if(!k)return;
-  if(k.dataset.act==="del")del();
-  else if(k.dataset.act==="mix"){if(!busy)shuffle(true)}
-  else put(k.dataset.d);
+ function reset(){vals=["","","","","",""];render()}
+ function check(){
+  busy=true;row.classList.add("is-busy");
+  later(()=>{
+   row.classList.remove("is-busy");
+   if(verify(vals.join(""))){
+    row.classList.add("is-merge");live.textContent=T.ok;
+    title.style.color="var(--k-mint)";swapTitle(T.ok);msg.classList.remove("is-on");
+    later(onOk,rm?300:1300);
+    return;
+   }
+   tries+=1;if(onBad)onBad();
+   row.classList.add("is-err");live.textContent="Sai mật khẩu";
+   row.classList.remove("is-shake");void row.offsetWidth;row.classList.add("is-shake");
+   msg.textContent=tries>=5?"Sai 5 lần. Thử lại sau 30 giây.":"Sai mật khẩu ("+tries+"/5)";msg.classList.add("is-on");
+   later(()=>{
+    reset();row.classList.remove("is-err");
+    if(tries>=5){later(()=>{tries=0;msg.classList.remove("is-on");busy=false;cur(0)},30000)}
+    else{busy=false;cur(0)}
+   },rm?300:700);
+  },rm?200:700);
+ }
+ ins.forEach((d,i)=>{
+  d.addEventListener("focus",()=>bs.forEach((b,n)=>b.classList.toggle("is-cur",n===i)));
+  d.addEventListener("blur",()=>bs[i].classList.remove("is-cur"));
+  d.addEventListener("input",()=>{
+   if(busy){render();return}
+   const v=d.value.replace(/\D/g,""),old=vals[i];
+   if(!v){vals[i]="";render();return}
+   let add=v;
+   if(old&&v.length>1)add=v.indexOf(old)===0?v.slice(old.length):(v.slice(0,v.length-old.length)||v);
+   fill(i,add);
+  });
+  d.addEventListener("paste",e=>{
+   const t=e.clipboardData&&e.clipboardData.getData("text");
+   if(!t)return;
+   e.preventDefault();
+   if(!busy)fill(i,t);
+  });
+  d.addEventListener("keydown",e=>{
+   if(busy)return;
+   if(e.key==="Backspace"){
+    e.preventDefault();
+    if(vals[i]){vals[i]="";render();cur(i)}else if(i>0){vals[i-1]="";render();cur(i-1)}
+   }else if(e.key==="ArrowLeft"&&i>0){e.preventDefault();cur(i-1)}
+   else if(e.key==="ArrowRight"&&i<5){e.preventDefault();cur(i+1)}
+  });
  });
- if(pinKey)document.removeEventListener("keydown",pinKey);
- pinKey=e=>{
-  if(!root.isConnected||e.ctrlKey||e.metaKey||e.altKey)return;
-  const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
-  if(/^[0-9]$/.test(e.key)){e.preventDefault();const k=keys.filter(x=>x.dataset.d===e.key)[0];if(k&&!busy)press(k);put(e.key)}
-  else if(e.key==="Backspace"){e.preventDefault();press(q('[data-act="del"]'));del()}
- };
- document.addEventListener("keydown",pinKey);
- shuffle(false);paint();live.textContent="";
+ later(()=>cur(0),60);
  return root;
 }
 /* ===== MENU CHỨC NĂNG QUẢN TRỊ (#354) ===== */
@@ -1554,7 +1838,8 @@ function route(){
   }
   a=key;
  }
- if(k==="admin")adminPage(app);
+ if(k==="admin"&&ADM_OK)adminPage(app);
+ else if(k==="admin"){history.replaceState(null,"","#home");home(app)}
  else if(k==="tag")tagPage(app,a);
  else if(k==="item"||k==="thanks"||k==="done")itemPage(app,a,k==="item"?"":k);
  else home(app);
@@ -1637,6 +1922,7 @@ async function init(){
  }catch(e){}
 }
 setTimeout(()=>{if(!dbh)paintStats()},3000);
+if(LANG==="en")trWalk(document.body);
 init();
 </script>
 <script>
