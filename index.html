@@ -69,6 +69,81 @@ h1,h2,h3{color:var(--ac)}
 @keyframes rot{to{transform:rotate(360deg)}}
 #busy{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.6);color:#fff;font-weight:bold;text-align:center;padding:20px}
 #busy.show{display:flex}
+/* Lucian UX/UI Prompt #289 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#289 */
+.u289{--ux-surface:var(--bg);--ux-surface-2:var(--soft);--ux-surface-3:color-mix(in srgb,var(--fg) 18%,var(--bg));--ux-ink:var(--fg);--ux-ink-3:var(--mut);--ux-line:var(--bd);
+ position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:45;width:46px;height:46px;color:var(--ux-ink)}
+.u289-fb{position:absolute;right:0;bottom:0;z-index:4;width:46px;height:46px;border:0;padding:0;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 22px -10px rgba(0,0,0,.55)}
+.u289-fb svg{display:none;width:22px;height:22px}
+.u289[data-i="plus"] .u289-ip,.u289[data-i="x"] .u289-ix,.u289[data-i="m"] .u289-im,.u289[data-i="a"] .u289-ia{display:block;animation:u289-pop .3s cubic-bezier(.3,1.4,.5,1)}
+@keyframes u289-pop{from{transform:scale(.5) rotate(-40deg);opacity:0}}
+.u289-sat{position:absolute;right:3px;z-index:3;width:40px;height:40px;padding:0;border:2px solid var(--fg);border-radius:50%;background:var(--bg);color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 18px -8px rgba(0,0,0,.45);transform:translateY(34px) scale(.4);opacity:0;visibility:hidden;transition:transform .3s cubic-bezier(.3,1.4,.5,1),opacity .2s,visibility 0s .3s}
+.u289-sat svg{width:20px;height:20px}
+.u289-sm{bottom:56px}.u289-sa{bottom:102px}
+.u289[data-s="menu"] .u289-sat{transform:none;opacity:1;visibility:visible;transition:transform .3s cubic-bezier(.3,1.4,.5,1),opacity .2s,visibility 0s}
+.u289[data-s="menu"] .u289-sa{transition-delay:.05s,.05s,0s}
+.u289-pn,#player{position:absolute;right:0;bottom:56px;z-index:3;text-align:left;transform-origin:calc(100% - 23px) calc(100% + 34px);transform:scale(.5);opacity:0;pointer-events:none;visibility:hidden;transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .2s,visibility 0s .35s}
+.u289[data-s="a11y"] .u289-pn,.u289[data-s="music"] #player{transform:none;opacity:1;pointer-events:auto;visibility:visible;transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .2s,visibility 0s}
+.u289-pn{width:min(212px,calc(100vw - 28px));padding:12px;border-radius:18px;background:var(--ux-surface);color:var(--ux-ink);box-shadow:0 0 0 1px var(--ux-line),0 22px 44px -16px rgba(0,0,0,.4)}
+#player{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:0 0 16px var(--glow);max-width:min(92vw,300px);width:max-content}
+#player button{width:32px;height:32px;padding:0;border:1px solid var(--bd);border-radius:9px;background:var(--btnbg);color:var(--btnfg);font-size:14px;cursor:pointer}
+#trk{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:bold}
+.u289-pn b{display:block;font-size:12.5px;font-weight:900}
+.u289-fs{display:flex;align-items:center;gap:6px;margin-top:10px;padding:6px;border-radius:11px;background:var(--ux-surface-2)}
+.u289-fs span{flex:1;font-size:11px;font-weight:800}
+.u289-fs em{font-style:normal;font-size:10.5px;font-weight:850;color:var(--ux-ink-3);font-variant-numeric:tabular-nums;min-width:34px;text-align:center}
+.u289-fs button{width:28px;height:28px;padding:0;border:0;border-radius:8px;background:var(--ux-surface);box-shadow:inset 0 0 0 1px var(--ux-line);color:var(--ux-ink);font:inherit;font-weight:900;cursor:pointer}
+.u289-fs button:disabled{opacity:.35;cursor:default}
+.u289-dn{font-size:10px!important}.u289-up{font-size:14px!important}
+.u289-rw{display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding:6px 6px 6px 8px;font-size:11px;font-weight:800}
+.u289-sw{position:relative;flex:none;width:34px;height:20px;padding:0;border:0;border-radius:10px;background:var(--ux-surface-3);cursor:pointer;transition:background .2s}
+.u289-sw::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--bg);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.u289-sw[aria-checked="true"]{background:var(--fg)}
+.u289-sw[aria-checked="true"]::after{transform:translateX(14px)}
+.u289-rs{width:100%;height:30px;margin-top:6px;padding:0;border:0;border-radius:9px;background:none;color:var(--ux-ink-3);font:inherit;font-size:10.5px;font-weight:800;cursor:pointer}
+.u289 button:focus-visible{outline:2px solid var(--fg);outline-offset:2px;box-shadow:0 0 0 4px var(--bg)}
+@media (prefers-reduced-motion:reduce){.u289-fb svg{animation:none!important}.u289-pn,#player,.u289-sat,.u289-sw,.u289-sw::after{transition:none!important}}
+/* hiệu ứng lên toàn trang, bật bằng class trên <html> */
+html.u289-z #app{zoom:var(--u289-fs,1)}
+html.u289-lh #app{line-height:2}
+:root.u289-hc.u289-hc{--bg:#000;--fg:#fff;--card:#000;--soft:#111;--bd:#fff;--mut:#fff;--ac:#fff;--glow:transparent;--btnbg:#fff;--btnfg:#000}
+html.u289-hc #app a:not(.btn){color:#FDE047}
+html.u289-ln #app a,html.u289-ln #nav a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;outline:2px solid currentColor;outline-offset:2px}
+
+/* Lucian UX/UI Prompt #083 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#083 */
+.u083{--u-warn:#D6731E;--u-mint:#119C72;--u-danger:#D93A55;--u-ac:#6A57F2;--u-trk:color-mix(in srgb,var(--fg) 12%,var(--bg));--u-ease:cubic-bezier(.2,.8,.2,1);
+ position:relative;width:min(350px,100%);height:360px;display:flex;flex-direction:column;padding:20px 20px 18px;border-radius:28px;background:var(--bg);color:var(--fg);text-align:left;font-weight:normal;box-shadow:0 0 0 1px var(--bd),0 30px 60px -36px rgba(0,0,0,.5);overflow:hidden}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .u083{--u-warn:#FFB26B;--u-mint:#7EE8C0;--u-danger:#FF7D8C;--u-ac:#B7A4FF}}
+:root[data-theme="dark"] .u083{--u-warn:#FFB26B;--u-mint:#7EE8C0;--u-danger:#FF7D8C;--u-ac:#B7A4FF}
+.u083-h{display:flex;align-items:center;gap:10px}
+.u083-h i{width:36px;height:36px;flex:none;border-radius:11px;background:var(--fg);position:relative}
+.u083-h i::after{content:"";position:absolute;left:10px;top:11px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:14px solid var(--bg)}
+.u083-h b{display:block;font-size:15.5px;font-weight:850;letter-spacing:-.03em}
+.u083-h small{display:block;max-width:150px;font-size:12px;font-weight:650;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u083-pill{margin-left:auto;height:26px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);font-size:12px;font-weight:800;white-space:nowrap;transition:background-color .4s,color .4s}
+.u083-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:u083-blink 1.2s ease-in-out infinite}
+.u083.is-done .u083-pill::before{animation:none}
+@keyframes u083-blink{50%{opacity:.3}}
+.u083-trk{position:relative;height:6px;margin:18px 0 6px;border-radius:3px;background:var(--u-trk);overflow:hidden}
+.u083-seg{position:absolute;top:0;bottom:0;border-radius:inherit;background:var(--u-ac);transition:opacity .4s}
+.u083-seg.a{animation:u083-a 1.6s cubic-bezier(.65,.05,.35,1) infinite}
+.u083-seg.b{animation:u083-b 1.6s cubic-bezier(.25,.6,.4,1) .55s infinite}
+@keyframes u083-a{0%{left:-35%;right:100%}60%{left:100%;right:-90%}100%{left:100%;right:-90%}}
+@keyframes u083-b{0%{left:-200%;right:100%}60%{left:107%;right:-8%}100%{left:107%;right:-8%}}
+.u083-fill{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:inherit;background:var(--u-ac);transform-origin:0 50%;transform:scaleX(var(--p,0));opacity:0;transition:transform .5s var(--u-ease),opacity .3s,background-color .4s}
+.u083.is-det .u083-seg{opacity:0}
+.u083.is-det .u083-fill{opacity:1}
+.u083.is-done .u083-fill{background:var(--u-mint)}
+.u083-meta{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums}
+.u083-log{flex:1;margin:12px 0 0;padding:12px;border-radius:16px;background:var(--soft);list-style:none;overflow:hidden;display:flex;flex-direction:column;gap:7px;font-size:12.5px;font-weight:600;line-height:1.4}
+.u083-log li{display:flex;align-items:center;gap:8px;color:var(--mut);animation:u083-in .4s var(--u-ease)}
+@keyframes u083-in{from{opacity:0;transform:translateY(8px)}}
+.u083-log time{color:var(--mut);font:600 11.5px ui-monospace,SFMono-Regular,Menlo,monospace}
+.u083-st{width:14px;height:14px;flex:none;position:relative}
+.u083-st::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--u-ac);border-right-color:transparent;animation:u083-spin .7s linear infinite}
+.u083-log li.ok .u083-st::before{border:0;animation:none;background:var(--u-mint);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 7.4l2.6 2.6L11 4.6' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 7.4l2.6 2.6L11 4.6' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.u083-log li.ok{color:var(--mut);opacity:.8}
+@keyframes u083-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.u083,.u083 *,.u083 *::before{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px auto}
 .stats div{padding:12px;border:1px solid var(--bd);border-radius:12px;background:var(--card);font-size:13px}
 .stats b{display:block;font-size:22px;color:var(--ac)}
@@ -91,10 +166,6 @@ h1,h2,h3{color:var(--ac)}
 .adm tr.sum td{font-weight:bold;border-bottom:0}
 .row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:110px}
 #amsg{margin:10px 0;font-weight:bold}
-#player{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--card);border:1px solid var(--bd);border-radius:16px;box-shadow:0 0 16px var(--glow);max-width:min(92vw,330px)}
-#player button{width:38px;height:38px;border:1px solid var(--bd);border-radius:10px;background:var(--btnbg);color:var(--btnfg);font-size:16px;cursor:pointer}
-#trk{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:bold}
-#player.min #trk,#player.min #nx{display:none}
 .box,.group,header,#player,.stats div,.notice{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 #toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);z-index:60;max-width:min(88vw,380px);padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--bd);box-shadow:0 0 30px var(--glow);text-align:center;font-weight:bold;opacity:0;pointer-events:none;transition:.25s;backdrop-filter:blur(16px)}
 #toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
@@ -370,10 +441,25 @@ h1,h2,h3{color:var(--ac)}
 <div id="bd"></div>
 <nav id="nav" class="u040" aria-label="Menu chính"></nav>
 <main id="app"></main>
-<div id="player"><button id="pp" aria-label="Phát hoặc dừng nhạc">▶</button><span id="trk">Chưa có nhạc</span><button id="nx" aria-label="Bài kế tiếp">⏭</button><button id="mn" aria-label="Thu nhỏ">−</button></div>
 <audio id="aud" preload="none"></audio>
 <div id="toast"></div>
-<div id="busy"><div class="spin big"></div><div>API đang tạo link, vui lòng chờ...</div></div>
+<div id="busy"><div class="u083" role="dialog" aria-modal="true" aria-label="API đang tạo link, vui lòng chờ">
+  <div class="u083-h"><i aria-hidden="true"></i><span><b>Đang tạo link</b><small class="u083-n"></small></span><span class="u083-pill" role="status" aria-live="polite" style="--c:var(--u-warn)">Đang chờ</span></div>
+  <div class="u083-trk" role="progressbar" aria-label="Tiến trình tạo link" aria-valuemin="0" aria-valuemax="100"><span class="u083-seg a" aria-hidden="true"></span><span class="u083-seg b" aria-hidden="true"></span><span class="u083-fill" aria-hidden="true"></span></div>
+  <div class="u083-meta"><span class="u083-l">Đang chờ Link4M phản hồi</span><span class="u083-r"></span></div>
+  <ol class="u083-log" aria-label="Nhật ký tạo link"></ol>
+</div></div>
+<div class="u289" data-s="" data-i="plus">
+  <div id="player" role="region" aria-label="Phát nhạc" aria-hidden="true"><button id="pp" aria-label="Phát hoặc dừng nhạc">▶</button><span id="trk">Chưa có nhạc</span><button id="nx" aria-label="Bài kế tiếp">⏭</button></div>
+  <div class="u289-pn" role="dialog" aria-label="Cài đặt hiển thị" aria-hidden="true"><b>Cài đặt hiển thị</b>
+    <div class="u289-fs"><span>Cỡ chữ</span><button type="button" class="u289-dn" aria-label="Chữ nhỏ hơn">A</button><em class="u289-fv"></em><button type="button" class="u289-up" aria-label="Chữ lớn hơn">A</button></div>
+    <div class="u289-sws"></div>
+    <button type="button" class="u289-rs">Đặt lại</button>
+  </div>
+  <button type="button" class="u289-sat u289-sa" aria-label="Mở cài đặt hiển thị (trợ năng)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2.2" fill="currentColor"/><path d="M4.5 8.5l7.5 1.5 7.5-1.5M12 10v5m0 0l-3.5 6.5M12 15l3.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button type="button" class="u289-sat u289-sm" aria-label="Mở trình phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg></button>
+  <button type="button" class="u289-fb" aria-label="Mở menu nhạc và trợ năng" aria-expanded="false"><svg class="u289-ip" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><svg class="u289-ix" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><svg class="u289-im" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg><svg class="u289-ia" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2.2" fill="currentColor"/><path d="M4.5 8.5l7.5 1.5 7.5-1.5M12 10v5m0 0l-3.5 6.5M12 15l3.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
 
 <script>
 /* ===== MẶC ĐỊNH (dùng khi Admin chưa lưu gì) ===== */
@@ -442,6 +528,47 @@ const ADMIN_PIN="152012";
 
 /* ===== TIỆN ÍCH ===== */
 const $=id=>document.getElementById(id);
+/* ===== BUSY CARD (#083): hàng đợi -> tiến trình khi API tạo link ===== */
+const BusyUI=(()=>{
+ const root=document.querySelector("#busy .u083"),pill=root.querySelector(".u083-pill"),trk=root.querySelector(".u083-trk"),fill=root.querySelector(".u083-fill"),
+  ml=root.querySelector(".u083-l"),mr=root.querySelector(".u083-r"),log=root.querySelector(".u083-log"),nm=root.querySelector(".u083-n");
+ const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ let ts=[],sec=0,waitLi=null;
+ const later=(fn,ms)=>{ts.push(setTimeout(fn,rm?Math.min(ms,120):ms))};
+ const stamp=()=>{const d=new Date();return ("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2)};
+ function line(txt){
+  const li=document.createElement("li"),a=document.createElement("span"),t=document.createElement("time"),x=document.createElement("span");
+  a.className="u083-st";a.setAttribute("aria-hidden","true");t.textContent=stamp();x.textContent=txt;
+  li.append(a,t,x);log.appendChild(li);
+  while(log.children.length>6)log.firstChild.remove();
+  return li;
+ }
+ function setPill(t,c){pill.textContent=t;pill.style.setProperty("--c",c)}
+ function reset(){
+  ts.forEach(clearTimeout);ts=[];waitLi=null;
+  root.classList.remove("is-det","is-done");log.replaceChildren();
+  fill.style.setProperty("--p",0);trk.removeAttribute("aria-valuenow");
+  setPill("Đang chờ","var(--u-warn)");ml.textContent="Đang chờ Link4M phản hồi";mr.textContent="";
+ }
+ return{
+  start(name){reset();nm.textContent=name||"";waitLi=line("Gửi yêu cầu tới Link4M…");$("busy").classList.add("show")},
+  hide(){$("busy").classList.remove("show");reset()},
+  /* API trả về xong: thanh chuyển sang tiến trình, hết bước thì resolve */
+  finish(){return new Promise(ok=>{
+   if(waitLi)waitLi.classList.add("ok");
+   root.classList.add("is-det");setPill("Đang tạo","var(--u-ac)");
+   const S=[["Nhận link rút gọn",.5],["Gắn mốc 10 phút",.8],["Chuyển sang trang vượt link",1]];let i=0;
+   (function next(){
+    const st=S[i],li=line(st[0]+"…");ml.textContent=st[0];
+    fill.style.setProperty("--p",st[1]);trk.setAttribute("aria-valuenow",Math.round(st[1]*100));mr.textContent=Math.round(st[1]*100)+"%";
+    later(()=>{li.classList.add("ok");i++;
+     if(i<S.length)next();
+     else{root.classList.add("is-done");setPill("Xong","var(--u-mint)");ml.textContent="Đang chuyển hướng…";later(ok,350)}
+    },380);
+   })();
+  })}
+ };
+})();
 function el(t,c,x,a){const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;if(a)Object.assign(e,a);return e}
 function lk(h,c,x){return el("a",c,x,{href:h})}
 function card(h,i,sub){const a=lk(h,"card"+(i.hot?" hot":""));if(i.hot)a.append(el("em","badge","🔥 HOT"));a.append(el("span","",i.icon),el("b","",i.name),el("small","",sub));return a}
@@ -544,14 +671,14 @@ function drawNav(){
 
 /* ===== THỐNG KÊ ===== */
 function calcStats(){
- const now=Date.now(),r={users:stats.length,online:0,gates:0,files:0,android:0,iphone:0};
- stats.forEach(s=>{if(now-(s.last||0)<120000)r.online++;r.gates+=+s.gates||0;r.files+=+s.files||0;if(s.device==="android")r.android++;if(s.device==="iphone")r.iphone++});
+ const now=Date.now(),r={users:stats.length,online:0,gates:0,codes:0,files:0,android:0,iphone:0};
+ stats.forEach(s=>{if(now-(s.last||0)<120000)r.online++;r.gates+=+s.gates||0;r.codes+=+s.codes||0;r.files+=+s.files||0;if(s.device==="android")r.android++;if(s.device==="iphone")r.iphone++});
  return r;
 }
 function paintStats(){
  const r=calcStats();
- ["users","online","gates","files","android","iphone"].forEach(k=>{document.querySelectorAll('[data-st="'+k+'"]').forEach(e=>e.textContent=fmt(r[k]))});
- paintItems();
+ ["users","online","gates","codes","files","android","iphone"].forEach(k=>{document.querySelectorAll('[data-st="'+k+'"]').forEach(e=>e.textContent=fmt(r[k]))});
+ paintItems();paintUsers();
 }
 function rateTxt(sum,n){
  if(!n)return"—";const a=Math.round(sum/n);
@@ -572,6 +699,35 @@ function paintItems(){
  const w=el("div");w.style.overflowX="auto";w.append(t);box.replaceChildren(w);
 }
 setInterval(paintStats,30000);
+/* ===== THỐNG KÊ TỪNG NGƯỜI DÙNG (Quản trị) ===== */
+let usrFilter="all";const usrOpen=new Set();
+function paintUsers(){
+ const box=$("userStats");if(!box)return;
+ const now=Date.now(),U=stats.map(s=>{
+  const m=(s.items&&typeof s.items==="object")?s.items:{};
+  return{id:String(s._id||""),dev:s.device||"other",first:+s.first||0,last:+s.last||0,g:+s.gates||0,c:+s.codes||0,f:+s.files||0,items:Object.keys(m).map(k=>({k:k,g:+(m[k]&&m[k].g)||0,c:+(m[k]&&m[k].c)||0,f:+(m[k]&&m[k].f)||0,r:m[k]&&typeof m[k].r==="number"?m[k].r:null})).filter(x=>x.g||x.c||x.f)};
+ });
+ const n=(fn)=>U.filter(fn).length,tot=el("p","mut","👥 "+fmt(U.length)+" người dùng · ✅ "+fmt(n(u=>u.g>0))+" đã vượt link · 🔑 "+fmt(n(u=>u.c>0))+" đã dùng code · 📥 "+fmt(n(u=>u.f>0))+" đã lấy file");
+ const sel=el("select");sel.setAttribute("aria-label","Lọc người dùng");[["all","Tất cả người dùng"],["gate","Đã vượt link"],["code","Đã dùng code"],["file","Đã lấy file"]].forEach(o=>sel.append(el("option","",o[1],{value:o[0]})));sel.value=usrFilter;sel.onchange=()=>{usrFilter=sel.value;paintUsers()};
+ const keep=usrFilter==="gate"?(u=>u.g>0):usrFilter==="code"?(u=>u.c>0):usrFilter==="file"?(u=>u.f>0):(()=>true);
+ const L=U.filter(keep).sort((a,b)=>b.last-a.last),LIM=100;
+ const t=el("table"),hd=el("tr");["Người dùng","Hoạt động","✅ Vượt link","🔑 Dùng code","📥 Lấy file","Chi tiết theo mục"].forEach(x=>hd.append(el("th","",x)));t.append(hd);
+ L.slice(0,LIM).forEach(u=>{
+  const tr=el("tr"),td=el("td","",(u.dev==="android"?"🤖 ":u.dev==="iphone"?"🍎 ":"💻 ")+"…"+(u.id.slice(-6)||"?"));
+  const ago=u.last?(now-u.last<120000?"🟢 Online":new Date(u.last).toLocaleString("vi-VN")):"—";
+  const det=el("td");
+  if(u.items.length){
+   const d=document.createElement("details"),sm=el("summary","",u.items.length+" mục");d.append(sm);if(usrOpen.has(u.id))d.open=true;
+   d.addEventListener("toggle",()=>{if(d.open)usrOpen.add(u.id);else usrOpen.delete(u.id)});
+   u.items.sort((a,b)=>(b.g+b.c+b.f)-(a.g+a.c+a.f)).forEach(x=>{const it=cfg.items.find(i=>i.key===x.k);d.append(el("div","mut",(it?it.icon+" "+it.name:x.k)+": ✅"+x.g+" 🔑"+x.c+" 📥"+x.f+(x.r!=null?" 😊"+x.r:"")))});
+   det.append(d);
+  }else det.textContent="—";
+  tr.append(td,el("td","",ago),el("td","",fmt(u.g)),el("td","",fmt(u.c)),el("td","",fmt(u.f)),det);t.append(tr);
+ });
+ const w=el("div");w.style.overflowX="auto";w.append(t);
+ box.replaceChildren(tot,sel,w,...(L.length>LIM?[el("p","mut","Chỉ hiện "+LIM+" người hoạt động gần nhất.")]:[]),...(L.length?[]:[el("p","mut","Chưa có người dùng nào khớp.")]));
+}
+
 function statBox(items){
  const w=el("div","stats");
  items.forEach(([k,l])=>{const d=el("div","",l);const b=el("b","","…");b.dataset.st=k;d.prepend(b);w.append(d)});
@@ -958,16 +1114,16 @@ function itemPage(app,key,step){
    if(LINK4M_API_TOKEN.startsWith("DAN_TOKEN")){if(okUrl(it.gateUrl))window.open(it.gateUrl,"_blank","noopener");return}
    e.preventDefault();if(busy)return;busy=true;
    g.replaceChildren(el("span","spin"),document.createTextNode("ĐANG TẠO LINK..."));
-   $("busy").classList.add("show");
-   const ret=location.origin+location.pathname+"#thanks-"+key+"~"+gateTok(key),off=()=>{busy=false;$("busy").classList.remove("show");g.textContent="🔓 VƯỢT LINK"};
+   BusyUI.start(it.name);
+   const ret=location.origin+location.pathname+"#thanks-"+key+"~"+gateTok(key),off=()=>{busy=false;BusyUI.hide();g.textContent="🔓 VƯỢT LINK"};
    try{
     const r=await fetch(LINK4M_ENDPOINT+"?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(ret)),d=await r.json();
     const u=d.shortenedUrl||d.shortened_url||d.short_url;
     if(d.status!=="success"||!okUrl(u)){const x=new Error(d.message||"Link4M từ chối");x.api=1;throw x}
-    viaSet(key,false);winSet(key);location.href=u;
+    viaSet(key,false);winSet(key);await BusyUI.finish();location.href=u;
    }catch(err){
     if(err.api){off();toastMsg("Link4M báo lỗi: "+err.message);return}
-    viaSet(key,false);winSet(key);location.href="https://link4m.co/st?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(ret);
+    viaSet(key,false);winSet(key);await BusyUI.finish();location.href="https://link4m.co/st?api="+encodeURIComponent(LINK4M_API_TOKEN)+"&url="+encodeURIComponent(ret);
    }
   };
   b.append(el("div","",it.icon,{style:"font-size:48px"}),el("h2","","BẠN CẦN VƯỢT LINK ĐỂ LẤY "+it.name),el("p","msg","Tên file: "+it.file+" | Trạng thái: Sẵn sàng"),...(GATE_ON?[el("p","msg","⏳ Sau khi tạo link xong, bạn có 10 phút để vượt link, nghe cảm ơn và lấy file.")]:[]),g,codeBox(it),el("br"),bk(back));
@@ -1276,7 +1432,7 @@ function adminPage(app){
  const top=el("div","box");top.style.maxWidth="none";
  top.append(el("h2","","⚙️ QUẢN TRỊ"),el("p","mut",shared?"✅ Đã kết nối Firebase: bấm LƯU là áp dụng ngay cho tất cả người dùng, không cần đưa file lên Render. Thống kê và nhật ký tính chung cho cả web.":"⚠️ Chưa kết nối Firebase (điền FIREBASE_CONFIG trong code): bấm LƯU chỉ lưu trên trình duyệt này, có thể bấm TẢI config.json để dùng thủ công. Thống kê và nhật ký chỉ tính trên trình duyệt này."));
  const mk=(title,hint)=>{const s=el("section","box");s.style.maxWidth="none";s.append(el("h3","",title));if(hint)s.append(el("p","mut",hint));return s};
- const sO=mk("👁 Tổng quan");sO.append(statBox([["users","👁 Người dùng"],["online","🟢 Online"],["android","🤖 Android"],["iphone","🍎 iPhone"],["gates","✅ Vượt link"],["files","📥 Lấy file"]]));
+ const sO=mk("👁 Tổng quan");sO.append(statBox([["users","👁 Người dùng"],["online","🟢 Online"],["android","🤖 Android"],["iphone","🍎 iPhone"],["gates","✅ Vượt link"],["codes","🔑 Dùng code"],["files","📥 Lấy file"]]));
  const sT=mk("🏷️ Tag"),bT=el("div"),sI=mk("🧩 Mục","Link VƯỢT LINK mở khi bấm nút vượt link (để trống nếu không dùng). Link LẤY FILE mở ở bước cuối. Tick 🔥 Đang Hot để mục hiện màu đỏ ở khu vực Hot của Trang Chủ."),bI=el("div"),sN=mk("📢 Thông báo"),bN=el("div"),sM=mk("🎵 Nhạc","Dán link MP3 HTTPS hoặc tải file lên."),bM=el("div");
  function dT(){bT.replaceChildren();draft.tags.forEach((t,i)=>{
   const it=el("div","it"),r=el("div","row");
@@ -1367,15 +1523,16 @@ function adminPage(app){
   a.href=URL.createObjectURL(bl);a.download="config.json";a.click()}});
  const sS=mk("📈 Thống kê từng mục","Số lần vượt link, dùng code, lấy file và mức hài lòng trung bình (0–100, kèm số người đánh giá) của mỗi mục, tính chung toàn web, mục nhiều lượt nhất ở trên cùng. Người dùng kéo thanh mặt cười ở trang Lấy File; ai không kéo thì không tính đánh giá. Chỉ đếm theo mục từ bản V1.1.7 trở đi; các lượt cũ được gom vào dòng Dữ liệu cũ."),bS=el("div","","",{id:"itemStats"});sS.append(bS);
  const sC=mk("🔑 Code","Tạo code dạng NVP-KEY-XXX-XXX (XXX-XXX là chữ hoặc số) cho một, nhiều hoặc tất cả mục. Người dùng nhập code ở mục được áp dụng sẽ vào thẳng trang Cảm ơn, không cần vượt link; mỗi lần nhập hợp lệ trừ 1 lượt (lượt dùng tính chung cho mọi mục của code đó). Có thể sửa số lần dùng của từng code. Code lưu ngay, không cần bấm LƯU.");sC.append(codeAdmin());
- const SEC=[sO,sS,sL,sT,sI,sN,sM,s3,sX,sC];
+ const sU=mk("👥 Người dùng","Từng người dùng (mã ẩn danh theo thiết bị): số lần vượt link, dùng code và lấy file, kèm chi tiết theo từng mục. Người mới nhất ở trên cùng. Mỗi thiết bị tính là một người dùng; số liệu theo mục chỉ có từ khi bản này chạy trở đi.");sU.append(el("div","",""  ,{id:"userStats"}));
+ const SEC=[sO,sS,sL,sT,sI,sN,sM,s3,sX,sC,sU];
  const show=n=>SEC.forEach((x,i)=>{x.style.display=i===n?"":"none"});
- show(admSec);
+ show(admSec);paintUsers();
  const menu=adminMenu([
-  {name:"Thống kê",items:[["👁","Tổng quan","Người dùng và thiết bị",0],["📈","Từng mục","Lượt vượt link, dùng code, lấy file, hài lòng",1],["🧾","Nhật ký","Hoạt động người dùng",2]]},
+  {name:"Thống kê",items:[["👁","Tổng quan","Người dùng và thiết bị",0],["📈","Từng mục","Lượt vượt link, dùng code, lấy file, hài lòng",1],["🧾","Nhật ký","Hoạt động người dùng",2],["👥","Người dùng","Ai vượt link, dùng code, lấy file",10]]},
   {name:"Nội dung",items:[["🏷️","Tag","Thêm, sửa, xóa Tag",3],["🧩","Mục","Link, mục Hot",4],["📢","Thông báo","Bảng ở Trang Chủ",5],["🎵","Nhạc","Bài hát và âm lượng",6],["🔑","Code","Tạo code, sửa số lần dùng",9]]},
   {name:"Hệ thống",items:[["🧊","Giao diện","Khối 3D, ẩn/hiện khối",7],["🛠️","Bảo trì","Bật hoặc tắt bảo trì",8]]}
  ],show);
- app.append(top,menu,sO,sS,sL,sT,sI,sN,sM,s3,sX,sC,save,ex,el("div","","",{id:"amsg"}),bk("#home","← TRANG CHỦ"));
+ app.append(top,menu,sO,sS,sL,sT,sI,sN,sM,s3,sX,sC,sU,save,ex,el("div","","",{id:"amsg"}),bk("#home","← TRANG CHỦ"));
 }
 
 /* ===== ĐIỀU HƯỚNG ===== */
@@ -1424,7 +1581,6 @@ aud.addEventListener("ended",()=>playIdx(ti+1));
 aud.addEventListener("error",()=>{pp.textContent="▶"});
 function applyVol(){const v=typeof cfg.vol==="number"?cfg.vol:10;aud.volume=Math.max(0,Math.min(1,v/10))}
 applyVol();
-$("mn").onclick=()=>{const p=$("player");p.classList.toggle("min");$("mn").textContent=p.classList.contains("min")?"♫":"−"};
 
 /* ===== KẾT NỐI DỮ LIỆU CHUNG ===== */
 let fileCfg=null;
@@ -1452,7 +1608,7 @@ function makeDb(){
    doc:id=>({
     get:async()=>{const v=ld(name+"_"+id);return{exists:!!v,data:()=>v}},
     set:async v=>{sv(name+"_"+id,v);const ids=ld(name+"_ids")||[];if(!ids.includes(id)){ids.push(id);sv(name+"_ids",ids)}fire(name)}}),
-   onSnapshot:fn=>{const f=()=>{const docs=(ld(name+"_ids")||[]).map(id=>({data:()=>ld(name+"_"+id)}));fn({docs,empty:!docs.length})};subs.push([name,f]);f();return()=>{}}
+   onSnapshot:fn=>{const f=()=>{const docs=(ld(name+"_ids")||[]).map(id=>({id:id,data:()=>ld(name+"_"+id)}));fn({docs,empty:!docs.length})};subs.push([name,f]);f();return()=>{}}
   })
  };
 }
@@ -1470,17 +1626,56 @@ async function init(){
    if(sig!=="admin"){route()}
    trkName();
   },()=>{});
-  db.collection("stats").onSnapshot(s=>{stats=s.docs.map(d=>d.data()||{});paintStats()},()=>{});
+  db.collection("stats").onSnapshot(s=>{stats=s.docs.map(d=>Object.assign({_id:d.id||""},d.data()||{}));paintStats()},()=>{});
   if(uid){
    const ua=navigator.userAgent.toLowerCase(),dev=ua.includes("iphone")?"iphone":ua.includes("android")?"android":"other";
    let old={};try{const s=await db.collection("stats").doc(uid).get();if(s.exists)old=s.data()||{}}catch(e){}
-   mine={device:dev,first:old.first||Date.now(),gates:+old.gates||0,files:+old.files||0,items:(old.items&&typeof old.items==="object")?old.items:{},last:Date.now()};
+   mine={device:dev,first:old.first||Date.now(),gates:+old.gates||0,codes:+old.codes||0,files:+old.files||0,items:(old.items&&typeof old.items==="object")?old.items:{},last:Date.now()};
    saveMine();logAct("Truy cập","");setInterval(()=>{if(!document.hidden){mine.last=Date.now();saveMine()}},60000);
   }
  }catch(e){}
 }
 setTimeout(()=>{if(!dbh)paintStats()},3000);
 init();
+</script>
+<script>
+(function(){
+ var root=document.querySelector(".u289"),H=document.documentElement;
+ var fb=root.querySelector(".u289-fb"),pn=root.querySelector(".u289-pn"),dn=root.querySelector(".u289-dn"),up=root.querySelector(".u289-up"),fv=root.querySelector(".u289-fv"),sws=root.querySelector(".u289-sws"),rs=root.querySelector(".u289-rs");
+ var SW=["Tương phản cao","Nổi bật liên kết","Giãn dòng rộng"],CLS=["u289-hc","u289-ln","u289-lh"],STEPS=[0.9,1,1.15,1.3],k=1,on=[false,false,false];
+ try{var sv=JSON.parse(localStorage.getItem("phong_a11y")||"null");if(sv&&sv.k>=0&&sv.k<STEPS.length){k=sv.k|0;if(Array.isArray(sv.on))on=[!!sv.on[0],!!sv.on[1],!!sv.on[2]]}}catch(e){}
+ var B=SW.map(function(t,i){
+  var r=document.createElement("div");r.className="u289-rw";r.innerHTML='<span></span><button type="button" class="u289-sw" role="switch" aria-checked="false"></button>';
+  r.firstChild.textContent=t;var b=r.lastChild;b.setAttribute("aria-label",t);
+  b.addEventListener("click",function(){on[i]=!on[i];sync()});
+  sws.appendChild(r);return b;
+ });
+ function sync(){
+  H.style.setProperty("--u289-fs",STEPS[k]);H.classList.toggle("u289-z",STEPS[k]!==1);
+  fv.textContent=Math.round(STEPS[k]*100)+"%";dn.disabled=k===0;up.disabled=k===STEPS.length-1;
+  B.forEach(function(b,i){b.setAttribute("aria-checked",on[i]);H.classList.toggle(CLS[i],on[i])});
+  try{localStorage.setItem("phong_a11y",JSON.stringify({k:k,on:on}))}catch(e){}
+ }
+ dn.addEventListener("click",function(){if(k>0){k--;sync()}});
+ up.addEventListener("click",function(){if(k<STEPS.length-1){k++;sync()}});
+ rs.addEventListener("click",function(){k=1;on=[false,false,false];sync()});
+ var pl=document.getElementById("player"),sa=root.querySelector(".u289-sa"),sm=root.querySelector(".u289-sm");
+ var last="plus";try{var lv=localStorage.getItem("phong_dock_last");if(lv==="m"||lv==="a")last=lv}catch(e){}
+ function set(v){
+  if(v==="music"||v==="a11y"){last=v==="music"?"m":"a";try{localStorage.setItem("phong_dock_last",last)}catch(e){}}
+  root.dataset.i=v==="menu"?"x":v==="music"?"m":v==="a11y"?"a":last;
+  root.dataset.s=v;pn.setAttribute("aria-hidden",v!=="a11y");pl.setAttribute("aria-hidden",v!=="music");
+  fb.setAttribute("aria-expanded",v!=="");fb.setAttribute("aria-label",v?"Đóng":"Mở menu nhạc và trợ năng");
+  var f=v==="menu"?sm:v==="a11y"?up:v==="music"?document.getElementById("pp"):null;
+  if(f)setTimeout(function(){f.focus({preventScroll:true})},200);
+ }
+ fb.addEventListener("click",function(){set(root.dataset.s?"":"menu")});
+ sm.addEventListener("click",function(){set("music")});
+ sa.addEventListener("click",function(){set("a11y")});
+ document.addEventListener("click",function(e){if(root.dataset.s&&!root.contains(e.target))set("")});
+ root.addEventListener("keydown",function(e){if(e.key==="Escape"&&root.dataset.s){set("");fb.focus()}});
+ sync();set("");
+})();
 </script>
 </body>
 </html>
