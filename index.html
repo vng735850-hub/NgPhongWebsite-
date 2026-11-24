@@ -705,21 +705,22 @@ function paintUsers(){
  const box=$("userStats");if(!box)return;
  const now=Date.now(),U=stats.map(s=>{
   const m=(s.items&&typeof s.items==="object")?s.items:{};
-  return{id:String(s._id||""),dev:s.device||"other",first:+s.first||0,last:+s.last||0,g:+s.gates||0,c:+s.codes||0,f:+s.files||0,items:Object.keys(m).map(k=>({k:k,g:+(m[k]&&m[k].g)||0,c:+(m[k]&&m[k].c)||0,f:+(m[k]&&m[k].f)||0,r:m[k]&&typeof m[k].r==="number"?m[k].r:null})).filter(x=>x.g||x.c||x.f)};
+  const rc=Array.isArray(s.rc)?s.rc:[],its=Object.keys(m).map(k=>{const c=+(m[k]&&m[k].c)||0,codes=rc.filter(z=>z&&z.k===k).map(z=>z.c);return{k:k,g:+(m[k]&&m[k].g)||0,c:c,f:+(m[k]&&m[k].f)||0,r:m[k]&&typeof m[k].r==="number"?m[k].r:null,codes:codes,sus:c>codes.length}}).filter(x=>x.g||x.c||x.f);
+  return{id:String(s._id||""),dev:s.device||"other",first:+s.first||0,last:+s.last||0,g:+s.gates||0,c:+s.codes||0,f:+s.files||0,items:its,sus:its.some(x=>x.sus)};
  });
- const n=(fn)=>U.filter(fn).length,tot=el("p","mut","👥 "+fmt(U.length)+" người dùng · ✅ "+fmt(n(u=>u.g>0))+" đã vượt link · 🔑 "+fmt(n(u=>u.c>0))+" đã dùng code · 📥 "+fmt(n(u=>u.f>0))+" đã lấy file");
- const sel=el("select");sel.setAttribute("aria-label","Lọc người dùng");[["all","Tất cả người dùng"],["gate","Đã vượt link"],["code","Đã dùng code"],["file","Đã lấy file"]].forEach(o=>sel.append(el("option","",o[1],{value:o[0]})));sel.value=usrFilter;sel.onchange=()=>{usrFilter=sel.value;paintUsers()};
- const keep=usrFilter==="gate"?(u=>u.g>0):usrFilter==="code"?(u=>u.c>0):usrFilter==="file"?(u=>u.f>0):(()=>true);
+ const n=(fn)=>U.filter(fn).length,tot=el("p","mut","👥 "+fmt(U.length)+" người dùng · ✅ "+fmt(n(u=>u.g>0))+" đã vượt link · 🔑 "+fmt(n(u=>u.c>0))+" đã dùng code · 📥 "+fmt(n(u=>u.f>0))+" đã lấy file · ⚠️ "+fmt(n(u=>u.sus))+" nghi bypass");
+ const sel=el("select");sel.setAttribute("aria-label","Lọc người dùng");[["all","Tất cả người dùng"],["gate","Đã vượt link"],["code","Đã dùng code"],["file","Đã lấy file"],["sus","⚠️ Nghi bypass (dùng code không có bằng chứng)"]].forEach(o=>sel.append(el("option","",o[1],{value:o[0]})));sel.value=usrFilter;sel.onchange=()=>{usrFilter=sel.value;paintUsers()};
+ const keep=usrFilter==="gate"?(u=>u.g>0):usrFilter==="code"?(u=>u.c>0):usrFilter==="file"?(u=>u.f>0):usrFilter==="sus"?(u=>u.sus):(()=>true);
  const L=U.filter(keep).sort((a,b)=>b.last-a.last),LIM=100;
  const t=el("table"),hd=el("tr");["Người dùng","Hoạt động","✅ Vượt link","🔑 Dùng code","📥 Lấy file","Chi tiết theo mục"].forEach(x=>hd.append(el("th","",x)));t.append(hd);
  L.slice(0,LIM).forEach(u=>{
-  const tr=el("tr"),td=el("td","",(u.dev==="android"?"🤖 ":u.dev==="iphone"?"🍎 ":"💻 ")+"…"+(u.id.slice(-6)||"?"));
+  const tr=el("tr"),td=el("td","",(u.sus?"⚠️ ":"")+(u.dev==="android"?"🤖 ":u.dev==="iphone"?"🍎 ":"💻 ")+"…"+(u.id.slice(-6)||"?"));
   const ago=u.last?(now-u.last<120000?"🟢 Online":new Date(u.last).toLocaleString("vi-VN")):"—";
   const det=el("td");
   if(u.items.length){
-   const d=document.createElement("details"),sm=el("summary","",u.items.length+" mục");d.append(sm);if(usrOpen.has(u.id))d.open=true;
+   const d=document.createElement("details"),sm=el("summary","",u.items.length+" mục"+(u.sus?" ⚠️":""));d.append(sm);if(usrOpen.has(u.id))d.open=true;
    d.addEventListener("toggle",()=>{if(d.open)usrOpen.add(u.id);else usrOpen.delete(u.id)});
-   u.items.sort((a,b)=>(b.g+b.c+b.f)-(a.g+a.c+a.f)).forEach(x=>{const it=cfg.items.find(i=>i.key===x.k);d.append(el("div","mut",(it?it.icon+" "+it.name:x.k)+": ✅"+x.g+" 🔑"+x.c+" 📥"+x.f+(x.r!=null?" 😊"+x.r:"")))});
+   u.items.sort((a,b)=>(b.g+b.c+b.f)-(a.g+a.c+a.f)).forEach(x=>{const it=cfg.items.find(i=>i.key===x.k);d.append(el("div","mut",(it?it.icon+" "+it.name:x.k)+": ✅"+x.g+" 🔑"+x.c+" 📥"+x.f+(x.r!=null?" 😊"+x.r:"")+(x.sus?" ⚠️ không có mã code hợp lệ đi kèm":x.codes.length?" · code: "+x.codes.join(", "):"")))});
    det.append(d);
   }else det.textContent="—";
   tr.append(td,el("td","",ago),el("td","",fmt(u.g)),el("td","",fmt(u.c)),el("td","",fmt(u.f)),det);t.append(tr);
@@ -985,7 +986,7 @@ async function redeemCode(it,raw){
    tx.update(ref,{used:used+1,last:Date.now()});
    return"ok";
   });
-  if(res==="ok")return{ok:true};
+  if(res==="ok")return{ok:true,code:code};
   if(res==="full")return{ok:false,msg:"Code này đã hết lượt dùng."};
   if(res==="wrong")return{ok:false,bad:true,msg:"Code này không dùng được cho mục này."};
   return{ok:false,bad:true,msg:"Code không tồn tại."};
@@ -1007,7 +1008,7 @@ function codeBox(it){
   busy=true;btn.disabled=true;say("Đang kiểm tra code...");
   const r=await redeemCode(it,inp.value);
   busy=false;btn.disabled=false;
-  if(r.ok){codeFail=0;say("✅ Code hợp lệ!");viaSet(it.key,true);winSet(it.key);location.hash="#thanks-"+it.key;return}
+  if(r.ok){codeFail=0;say("✅ Code hợp lệ!");viaSet(it.key,true);winSet(it.key);if(mine){mine.rc=(Array.isArray(mine.rc)?mine.rc:[]).concat([{k:it.key,c:r.code,t:Date.now()}]).slice(-40);saveMine()}location.hash="#thanks-"+it.key;return}
   if(r.bad){codeFail++;if(codeFail>=5){codeFail=0;codeLock=Date.now()+30000;say("Sai 5 lần. Thử lại sau 30 giây.",true);return}}
   say(r.msg,true);
  }
@@ -1630,7 +1631,7 @@ async function init(){
   if(uid){
    const ua=navigator.userAgent.toLowerCase(),dev=ua.includes("iphone")?"iphone":ua.includes("android")?"android":"other";
    let old={};try{const s=await db.collection("stats").doc(uid).get();if(s.exists)old=s.data()||{}}catch(e){}
-   mine={device:dev,first:old.first||Date.now(),gates:+old.gates||0,codes:+old.codes||0,files:+old.files||0,items:(old.items&&typeof old.items==="object")?old.items:{},last:Date.now()};
+   mine={device:dev,first:old.first||Date.now(),gates:+old.gates||0,codes:+old.codes||0,files:+old.files||0,rc:Array.isArray(old.rc)?old.rc:[],items:(old.items&&typeof old.items==="object")?old.items:{},last:Date.now()};
    saveMine();logAct("Truy cập","");setInterval(()=>{if(!document.hidden){mine.last=Date.now();saveMine()}},60000);
   }
  }catch(e){}
